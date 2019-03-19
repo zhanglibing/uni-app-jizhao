@@ -1,0 +1,77 @@
+<template>
+	<view class="article-list-com">
+		<view  @tap="goView(item.Id,item.CustomerId)" class='item flex-row' v-for="(item,index) in data" :key="index">
+			<view class='img-box'>
+				<image :src="item.imgPath"></image>
+			</view>
+			<view class='content flex-column'>
+				<view class='title textOver2'>
+					{{item.Title}}
+				</view>
+				<view class='price-box'>
+					<text>{{item.CreatedOnUtc}}</text>
+					<text class='views'>阅读数:{{item.Views}}</text>
+				</view>
+			</view>
+		</view>
+	</view>
+</template>
+
+<script>
+export default {
+    props: ['data'],
+    methods: {
+        goView(id,userId) {
+            wx.navigateTo({
+                url: `/pages/article/view/view?id=${id}&userId=${userId}`
+            });
+        }
+    }
+};
+</script>
+
+<style lang="scss">
+.article-list-com {
+	padding: 20upx 30upx;
+	background: #fff;
+    .item {
+        margin-bottom: 40upx;
+        color: #666;
+       
+        .img-box {
+            width: 180upx;
+            height: 120upx;
+            margin-right: 20upx;
+            position: relative;
+        }
+        .content {
+            flex: 1;
+            font-size: 30upx;
+            flex-direction: column;
+            height: 120upx;
+            .title {
+                flex: 1;
+				font-size: 32upx;
+				color:#000;
+            }
+        }
+    }
+
+    .price-box {
+        height: 30upx;
+        position: relative;
+        font-size: 12px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+		align-items: flex-end;
+        
+    }
+
+    .img-box image {
+        width: 100%;
+        height: 100%;
+    }
+}
+</style>

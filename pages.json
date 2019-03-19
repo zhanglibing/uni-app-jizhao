@@ -1,0 +1,386 @@
+{
+    "pages" : [
+		
+		{
+		    "path" : "pages/index/index",
+		    "style" : {
+		        "navigationBarTitleText" : "幸福谋方"
+		    }
+		},
+		{
+		    "path" : "pages/course/view/view",
+		    "style" : {
+		        "navigationBarTitleText" : "课程详情"
+		    }
+		},
+		
+		{
+		    "path" : "pages/expertIn/background/background",
+		    "style" : {
+		        "navigationBarTitleText" : "专家入驻"
+		    }
+		},
+		 {
+		    "path" : "pages/expertIn/audit/audit",
+		    "style" : { 
+				"navigationBarTitleText" : "专家入驻"
+			}
+		},
+		
+		
+		{
+		    "path" : "pages/expertIn/basic/basic",
+		    "style" : {
+		        "navigationBarTitleText" : "专家入驻"
+		    }
+		},
+		 {
+		    "path" : "pages/expertIn/expertIn",
+		    "style" : {
+		        "navigationBarTitleText" : "专家入驻"
+		    }
+		},
+		
+		
+		  {
+		    "path" : "pages/login/login",
+		    "style" : {
+		        "navigationBarTitleText" : "登录"
+		    }
+		},
+		
+        {
+            "path" : "pages/login/reg/reg",
+            "style" : {
+                "navigationBarTitleText" : "注册账号"
+            }
+        },
+        {
+            "path" : "pages/regAgreement/regAgreement",
+            "style" : {
+                "navigationBarTitleText" : "幸福谋方用户注册协议"
+            }
+        },
+        {
+            "path" : "pages/consulting/consulting",
+            "style" : {
+                "navigationBarTitleText" : "咨询服务协议"
+            }
+        },
+        {
+            "path" : "pages/order/evaluate/evaluate",
+            "style" : {
+                "navigationBarTitleText" : "订单评价"
+            }
+        },
+        {
+            "path" : "pages/experts/experts",
+            "style" : {
+                "navigationBarTitleText" : "专家列表",
+                "enablePullDownRefresh" : true
+            }
+        },
+      
+        {
+            "path" : "pages/login/fogrotPsd/fogrotPsd",
+            "style" : {
+                "navigationBarTitleText" : "找回密码"
+            }
+        },
+        {
+            "path" : "pages/myCourse/index",
+            "style" : {
+                "navigationBarTitleText" : "我的课程",
+                "enablePullDownRefresh" : true
+            }
+        },
+        {
+            "path" : "pages/fm/fm",
+            "style" : {
+                "navigationBarTitleText" : "心理FM"
+            }
+        },
+        {
+            "path" : "pages/fm/view/view",
+            "style" : {
+                "navigationBarTitleText" : "FM详情"
+            }
+        },
+        {
+            "path" : "pages/fm/collect/collect",
+            "style" : {
+                "navigationBarTitleText" : "FM收藏"
+            }
+        },
+        {
+            "path" : "pages/experts/view/view",
+            "style" : {
+                "navigationBarTitleText" : "幸福谋方专家详情"
+            }
+        },
+        
+        {
+            "path" : "pages/discussion/view/view",
+            "style" : {
+                "navigationBarTitleText" : "话题详情"
+            }
+        },
+        {
+            "path" : "pages/course/course",
+            "style" : {
+                "navigationBarTitleText" : "课程学习",
+                "enablePullDownRefresh" : true
+            }
+        },
+        {
+            "path" : "pages/test/test",
+            "style" : {
+                "navigationBarTitleText" : "心理测试",
+                "enablePullDownRefresh" : true
+            }
+        },
+        {
+            "path" : "pages/search/search",
+            "style" : {
+                "navigationBarTitleText" : "搜索页"
+            }
+        },
+        {
+            "path" : "pages/test/myTest/myTest",
+            "style" : {
+                "navigationBarTitleText" : "我的测试",
+                "enablePullDownRefresh" : true
+            }
+        },
+        {
+            "path" : "pages/about/about",
+            "style" : {
+                "navigationBarTitleText" : "关于幸福谋方"
+            }
+        },
+        {
+            "path" : "pages/setting/setting",
+            "style" : {
+                "navigationBarTitleText" : "设置"
+            }
+        },
+        {
+            "path" : "pages/order/order",
+            "style" : {
+                "navigationBarTitleText" : "我的订单",
+                "enablePullDownRefresh" : true
+            }
+        },
+        {
+            "path" : "pages/order/view/view",
+            "style" : {
+                "navigationBarTitleText" : "订单详情"
+            }
+        },
+        {
+            "path" : "pages/article/article",
+            "style" : {
+                "navigationBarTitleText" : "文章列表",
+                "enablePullDownRefresh" : true
+            }
+        },
+        {
+            "path" : "pages/test/testing/testing",
+            "style" : {
+                "navigationBarTitleText" : "幸福谋方心理测试"
+            }
+        },
+        {
+            "path" : "pages/userInfo/userInfo",
+            "style" : {
+                "navigationBarTitleText" : "编辑个人信息"
+            }
+        },
+        {
+            "path" : "pages/center/center",
+            "style" : {
+                "navigationBarTitleText" : "我的"
+            }
+        },
+        {
+            "path" : "pages/bank/bank",
+            "style" : {
+                "navigationBarTitleText" : "我的银行卡"
+            }
+        },
+        {
+            "path" : "pages/bank/add/add",
+            "style" : {
+                "navigationBarTitleText" : "新增银行卡"
+            }
+        },
+        {
+            "path" : "pages/money/withdrawal/withdrawal",
+            "style" : {
+                "navigationBarTitleText" : "提现"
+            }
+        },
+        {
+            "path" : "pages/money/topup/topup",
+            "style" : {
+                "navigationBarTitleText" : "充值"
+            }
+        },
+        {
+            "path" : "pages/money/record/record",
+            "style" : {
+                "navigationBarTitleText" : "提现记录",
+                "enablePullDownRefresh" : true
+            }
+        },
+        {
+            "path" : "pages/discussion/index",
+            "style" : {
+                "navigationBarTitleText" : "问答",
+                "enablePullDownRefresh" : true
+            }
+        },
+        {
+            "path" : "pages/myCourse/video/video",
+            "style" : {
+                "navigationBarTitleText" : "课程播放"
+            }
+        },
+        {
+            "path" : "pages/myCourse/evaluate/evaluate",
+            "style" : {
+                "navigationBarTitleText" : "课程订单评价"
+            }
+        },
+        {
+            "path" : "pages/article/view/view",
+            "style" : {
+                "navigationBarTitleText" : "文章详情"
+            }
+        },
+        {
+            "path" : "pages/authorize/authorize",
+            "style" : {
+                "navigationBarTitleText" : "小程序授权登录"
+            }
+        },
+        {
+            "path" : "pages/money/money",
+            "style" : {
+                "navigationBarTitleText" : "我的余额"
+            }
+        },
+        {
+            "path" : "pages/discussion/myTopic/myTopic",
+            "style" : {
+                "navigationBarTitleText" : "我的话题"
+            }
+        },
+        {
+            "path" : "pages/discussion/reply/reply",
+            "style" : {
+                "navigationBarTitleText" : "话题回复"
+            }
+        },
+        {
+            "path" : "pages/discussion/published/published",
+            "style" : {
+                "navigationBarTitleText" : "发表话题"
+            }
+        },
+        {
+            "path" : "pages/test/view/view",
+            "style" : {
+                "navigationBarTitleText" : "测试详情"
+            }
+        },
+        {
+            "path" : "pages/test/result/result",
+            "style" : {
+                "navigationBarTitleText" : "测试结果"
+            }
+        },
+        {
+            "path" : "pages/find/find",
+            "style" : {
+                "navigationBarTitleText" : "发现"
+            }
+        },
+        {
+            "path" : "pages/fm/list/list",
+            "style" : {
+                "navigationBarTitleText" : "FM列表"
+            }
+        },
+        {
+            "path" : "pages/fm/comment/comment",
+            "style" : {
+                "navigationBarTitleText" : "评价"
+            }
+        },
+        {
+            "path" : "pages/myCourse/orderView/orderView",
+            "style" : {
+                "navigationBarTitleText" : "课程订单详情"
+            }
+        }
+       
+    ],
+	"navigateToMiniProgramAppIdList": [
+	   "wx49e55ff660f24bd6"
+	] ,
+    "tabBar" : {
+        "color" : "#7a7e83",
+        "selectedColor" : "#0faeff",
+        "backgroundColor" : "#ffffff",
+        "list" : [
+            {
+                "pagePath" : "pages/index/index",
+                "text" : "首页",
+                "iconPath" : "static/images/nav/home.png",
+                "selectedIconPath" : "static/images/nav/home-off.png"
+            },
+            {
+                "pagePath" : "pages/discussion/index",
+                "text" : "问答",
+                "iconPath" : "static/images/nav/question.png",
+                "selectedIconPath" : "static/images/nav/question-off.png"
+            },
+            {
+                "pagePath" : "pages/experts/experts",
+                "text" : "找专家",
+                "iconPath" : "static/images/nav/experts.png",
+                "selectedIconPath" : "static/images/nav/experts-off.png"
+            },
+            {
+                "pagePath" : "pages/find/find",
+                "text" : "发现",
+                "iconPath" : "static/images/nav/find.png",
+                "selectedIconPath" : "static/images/nav/find-off.png"
+            },
+            {
+                "pagePath" : "pages/center/center",
+                "text" : "我的",
+                "iconPath" : "static/images/nav/center.png",
+                "selectedIconPath" : "static/images/nav/center-off.png"
+            }
+        ]
+    },
+    "globalStyle" : {
+        "navigationBarTextStyle" : "black",
+        "navigationBarTitleText" : "幸福谋方",
+        "navigationBarBackgroundColor" : "#F2F2F2",
+        "backgroundColor" : "#F8F8F8"
+    },
+	"condition" : { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [
+			{
+				"name": "", //模式名称
+				"path": "", //启动页面，必选
+				"query": "" //启动参数，在页面的onLoad函数里面得到
+			}
+		]
+	}
+	
+}
