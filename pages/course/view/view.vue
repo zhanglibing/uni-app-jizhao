@@ -9,8 +9,8 @@
 		<view class='info-box'>
 			<view class='title'>{{info.Title}}</view>
 			<view class='price flex-row'>
-				<text v-if="info.Price>0">￥{{info.Price}}</text>
-				<text v-if="!info.Price">免费课程</text>
+				<text v-if="!info.Price||platform==='ios'">免费课程</text>
+				<text v-else="">￥{{info.Price}}</text>
 				<view class='type'>初级课程</view>
 			</view>
 			
@@ -45,7 +45,7 @@
 			<view class='no-comment' v-if="!ListComments.length">暂无评论</view>
 		</view>
 		 <uni-load-more v-if="ListComments.length" :loadingType="loadingType"></uni-load-more>
-		<view class='btn-box-pay' v-if="info.Price>0">
+		<view class='btn-box-pay' v-if="info.Price>0&&platform!=='ios'">
 			<!-- 立即支付 -->
 			<view class="total"
 				>共计：¥ <text class="num">{{info.Price }}</text></view
@@ -69,9 +69,11 @@
 				Page:1,
 				PageSize:10,
 				loadingType:0,
+				platform:''
 			};
 		},
 		onLoad(options) {
+			this.platform=this.$store.state.platform;
 			this.id = options.id;
 			
 			api.getById(this.id).then(res => {
@@ -97,13 +99,24 @@
 			 },
 			goWatch() {
 				if (this.info.Price > 0) {
-					uni.showModal({
-						title: '付费课程',
-						content: '请先付款',
-						success: () => {
-							this.toPayTap();
-						}
-					})
+					if(this.platform==='ios'){
+						uni.showModal({
+							 title: '该课程暂不支持',
+                             content: '十分抱歉，由于相关规范，您暂时无法订阅该课程，如有疑问请联系客服',
+							success: () => {
+								
+							}
+						})
+					}else{
+						uni.showModal({
+							title: '付费课程',
+							content: '请先付款',
+							success: () => {
+								this.toPayTap();
+							}
+						})
+					}
+					
 					return false;
 				}
 				uni.navigateTo({

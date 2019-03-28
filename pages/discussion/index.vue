@@ -25,7 +25,7 @@ export default {
             pageSize: 10
         };
     },
-    onShow() {
+    onLoad() {
        this.init();
     },
 

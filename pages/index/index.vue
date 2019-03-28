@@ -33,9 +33,9 @@
 			</view>
 			<view class="btn-box">
 				<navigator open-type="switchTab" url="../experts/experts" class="submit-btn"
-					>预约专家</navigator
+					><image src="../../static/images/index/appoint.png" mode=""></image></navigator
 				>
-				<navigator url="../test/test" class="submit-btn">心理测试</navigator>
+				<navigator url="../test/test" class="submit-btn"><image src="../../static/images/index/test.png" mode=""></image></navigator>
 			</view>
 		</view>
 		<!-- 热门专家 -->
@@ -54,7 +54,10 @@
 							<view>{{ item.Address1 }}</view>
 						</view>
 						<view class="info">
-							<view class="name">{{ item.RealName }}</view>
+							<view class="name">
+							    <text>{{ item.RealName }}</text>
+								<text class="year">从业：{{item.WorkingYears}}年</text>
+							</view>
 							<view class="desc textOver3" v-html="item.PersonalIntroduction"></view>
 						</view>
 					</view>
@@ -172,7 +175,7 @@ export default {
 	overflow-x: hidden;
 }
 .banner-box {
-	height: 336upx;
+	height:430upx;
 	background: #095389;
 	position: relative;
 	.search-box{
@@ -195,12 +198,12 @@ export default {
 		}
 	}
     .swiper {
-    	height: 336upx;
+    	height: 430upx;
     }
     .swiper-item {
     	display: block;
-    	height: 336upx;
-    	line-height: 336upx;
+    	height: 430upx;
+    	line-height: 430upx;
     	text-align: center;
 		navigator{
 			width:100%;
@@ -215,7 +218,7 @@ export default {
 
 .icon-wrapper {
 	position: relative;
-	padding: 0 40upx;
+	padding: 0 20upx;
 	box-sizing: border-box;
 	margin-bottom: 40upx;
 	.icon-box {
@@ -223,7 +226,7 @@ export default {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		margin-bottom: 10upx;
+		margin-bottom: 30upx;
 		border-radius: 10upx;
 		position: relative;
 		top: -10upx;
@@ -237,8 +240,8 @@ export default {
 			font-size: 22upx;
 			margin-bottom: 40upx;
 			.icon-img {
-				width: 84upx;
-				height: 84upx;
+				width: 86upx;
+				height: 86upx;
 				margin-bottom: 10upx;
 				image {
 					width: 100%;
@@ -253,13 +256,17 @@ export default {
 		justify-content: space-between;
 		.submit-btn {
 			flex: 1;
-			height: 82upx;
+			height: 98upx;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			font-size: 32upx;
 			&:first-child {
-				margin-right: 30upx;
+				margin-right:30upx;
+			}
+			image{
+				width:100%;
+				height:100%;
 			}
 		}
 	}
@@ -271,21 +278,34 @@ export default {
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	padding: 0 40upx;
-	height: 110upx;
+	padding: 0 20upx;
+	height: 120upx;
 	background: #fff;
 	.title {
 		font-size: 42upx;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		&::before{
+			content:'';
+			width:8upx;
+			height:0upx;
+			background: #000;
+			border-bottom:20upx solid #095289;
+			border-top:20upx solid #F5A623;
+			margin-right:30upx;
+		}
+		
 	}
 	.more {
-		width: 80upx;
-		height: 36upx;
-		border-radius: 20upx;
-		border: 1px solid rgba(151, 151, 151, 1);
+		width: 137upx;
+		height: 56upx;
+		border-radius: 34upx;
+		border: 1px solid #D5D5D5;
 		text-align: center;
 		color: #666;
-		font-size: 10px;
-		line-height: 36upx;
+		font-size: 12px;
+		line-height: 56upx;
 	}
 }
 .expert-box{
@@ -343,6 +363,14 @@ export default {
 					font-size: 36upx;
 					font-weight: bold;
 					margin-bottom: 25upx;
+					display: flex;
+					flex-direction: row;
+					justify-content: space-between;
+					align-items: center;
+					.year{
+						font-size: 22upx;
+						color:#666;
+					}
 				}
 				.desc {
 					white-space: normal;

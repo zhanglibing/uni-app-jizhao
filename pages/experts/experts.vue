@@ -115,6 +115,7 @@ export default {
 		};
 	},
 	onLoad() {
+		this.init();
 		user.getGoodFile().then(res => {
 			this.GoodFiel = [{ GoodField: '不限' }, ...res];
 		});
@@ -125,9 +126,7 @@ export default {
 
 		});
 	},
-	onShow() {
-		this.init();
-	},
+
 	methods: {
 		//地区搜索
 		PickerChange(e) {

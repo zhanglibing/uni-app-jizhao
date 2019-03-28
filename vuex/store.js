@@ -33,6 +33,7 @@ const state = {
 	experts:{},  //跳转tap页面不能传参数
 	fmList:[],  //fm播放列表
 	fmWishList:[], //fm收藏列表
+	platform:'ios',  //android
 }
 
 const mutations = {
@@ -82,7 +83,11 @@ const mutations = {
 	setClearUserInfo(state,val){
 		let usesInfo=null;
 		setSessionVal('userInfo', null);
+	},
+	setPlatform(state,val){
+		state.platform=val;
 	}
+	
 }
 
 const getters = {

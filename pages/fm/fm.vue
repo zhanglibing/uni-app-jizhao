@@ -184,7 +184,7 @@ $mood:
 			}
 			image{
 				max-width: 40upx;
-				min-height: 40upx;
+				max-height: 40upx;
 				margin-left: 40upx;
 			}
 		}

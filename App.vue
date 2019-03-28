@@ -4,6 +4,13 @@
 	export default {
 		onLaunch() {
 			let that = this;
+			
+			 //判断用户系统   ios系统要屏蔽虚拟商品价格
+			uni.getSystemInfo({
+			  success(res) {
+				that.setPlatform(res.platform)
+			  }
+			})
 			//-----------------微信小程序模块 start---------------------------/
 			//#ifdef MP-WEIXIN	
 			//判断微信是否已经授权 (异步请求)
@@ -38,7 +45,7 @@
 			// console.log('App Hide')
 		},
 		methods: {
-			...mapMutations(['setWxInfo','setUserInfo']),
+			...mapMutations(['setWxInfo','setUserInfo','setPlatform']),
 		}
 	}
 </script>

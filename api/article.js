@@ -6,7 +6,7 @@ function getArticleList(params) {
 	let option ={
 		Page: 1,
     PageSize: 10,
-		// flag:1,
+		flag:1,
 		...params
 	}
   return new Promise((resolve, reject) => {

@@ -11,8 +11,8 @@
 				<view class="watchs">观看人数:{{item.Watchs}}</view>
 				<view class='price-box'>
 					<text>{{item.CreateDate}}</text>
-					<text class='price' v-if="item.Price>0">￥{{item.Price}}</text>
-					<text class='price' v-if="!item.Price">免费课程</text>
+					<text class='price' v-if="!item.Price||platform==='ios'">免费课程</text>
+					<text class='price' v-else="">￥{{item.Price}}</text>
 				</view>
 			</view>
 		</view>
@@ -22,13 +22,22 @@
 <script>
 export default {
     props: ['data'],
+	data(){
+		return{
+			platform:''
+		}
+	},
     methods: {
         goView(e) {
             wx.navigateTo({
                 url: '/pages/course/view/view?id=' + e.currentTarget.dataset.id
             });
         }
-    }
+    },
+	created(){
+		this.platform=this.$store.state.platform;
+
+	}
 };
 </script>
 

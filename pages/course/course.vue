@@ -202,6 +202,7 @@ export default {
 			}
 			image {
 				width: 16upx;
+				height:28upx;
 				margin-left: 20upx;
 			}
 		}
@@ -210,7 +211,7 @@ export default {
 		
 	}
 	
-	.select-box {
+.select-box {
 		min-height: calc(100vh - 190upx);
 		background: rgba(0,0,0,0.6);
 		box-sizing: border-box;
