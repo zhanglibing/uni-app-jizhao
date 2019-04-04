@@ -24,7 +24,7 @@ async function getList(params) {
 				SearchCustomers
 			} = res;
 			SearchCustomers.customers.forEach(val => { //转义字符串
-				val.PersonalIntroduction = val.PersonalIntroduction.replace(/_@/g, '<br>')
+				val.PersonalIntroduction = val.PersonalIntroduction.replace(/_@/g, '</br>').slice(0,80)
 				// val.PersonalIntroduction = textDecode(val.PersonalIntroduction);
 				if (val.Address2) {
 					val.Address2 = val.Address2.split('-').slice(0, 2).join(' - ').replace('省', '').replace('市', '');

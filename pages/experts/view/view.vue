@@ -39,7 +39,8 @@
 				></uni-number-box>
 			</view>
 			<view class="xieyi">
-				<radio color="#095389" :checked="true" /><text @tap="goConsulting"> 预约即代表您确认并接受《咨询服务协议》</text>
+				<radio color="#095389" @click="radioChange" :checked="isChecked" /><text @tap="goConsulting"> 预约即代表您确认并接受《咨询服务协议》</text>
+
 			</view>
 		</view>
 		<view class="tab-box">
@@ -96,17 +97,17 @@
 			<view class="total"
 				>共计：¥<text class="num">{{ total }}</text></view
 			>
-			<view class="submit-btn" @tap="toPayTap">立即预约</view>
+			<view class="submit-btn" :class="{active:!isChecked}" @tap="toPayTap">立即预约</view>
 		</view>
 	</view>
 </template>
 
 <script>
-import articleList from '../../../components/articleList.vue';
-import article from '../../../api/article.js';
-import wxpay from '../../../api/pay.js';
-import uniNumberBox from '../../../components/uni-number-box.vue';
-import { gtConsultantInfo, gtListComment } from '../../../api/consultation.js';
+	import articleList from '../../../components/articleList.vue';
+	import article from '../../../api/article.js';
+	import wxpay from '../../../api/pay.js';
+	import uniNumberBox from '../../../components/uni-number-box.vue';
+	import { gtConsultantInfo, gtListComment } from '../../../api/consultation.js';
 export default {
 	components: {
 		uniNumberBox,
@@ -120,7 +121,8 @@ export default {
 			list: ['个人介绍', '受训背景', '文章发表', '用户评价'],
 			active: 0,
 			value: 1,
-			id: ''
+			id: '',
+			isChecked:false
 		};
 	},
 	onLoad(option) {
@@ -145,6 +147,10 @@ export default {
 				});
 			});
 		},
+		radioChange(e){
+			
+			this.isChecked=!this.isChecked;
+		},
 		setActive(index) {
 			this.active = index;
 		},
@@ -153,6 +159,20 @@ export default {
 		},
 		//付款
 		toPayTap() {
+			let that=this;
+			if(!this.isChecked){
+				uni.showModal({
+					title:'提示',
+					content:'请勾选协议',
+					confirmText:'确认勾选',
+					success(res) {
+						if(res.confirm){
+							that.radioChange()
+						}
+					}
+				})
+				return false;
+			}
 			if(!this.$isLogin()){return false;}
 			let SerivcePrice = this.info.ConsultantInfo.SerivcePrice;
 			uni.showLoading({
@@ -374,6 +394,9 @@ page {
 		width: 250upx;
 		font-size: 36upx;
 		margin-left: 60upx;
+		&.active{
+			background: #666;
+		}
 	}
 }
 </style>

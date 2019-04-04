@@ -30,13 +30,12 @@
 		   <view class="model-title">推荐 
 		     <navigator url="list/list">更多</navigator>
 		   </view>
-		   <fm-list :data="list"></fm-list>
+		   <fm-list></fm-list>
 		</view>
 	</view>
 </template>
 
 <script>
-import fm from '../../api/fm.js';
 import fmList from '../../components/fmList'
 export default {
 	components:{
@@ -44,7 +43,6 @@ export default {
 	},
 	data() {
 		return {
-			list: [],
 			moodList: [
 				{ name: '烦躁', path: '../../static/images/mood/fanzao.png' },
 				{ name: '悲伤', path: '../../static/images/mood/sad.png' },
@@ -69,12 +67,7 @@ export default {
 			]
 		};
 	},
-	onLoad() {
-		//获取推荐列表
-		fm.getList().then(res=>{
-			this.list=res.Data;
-		})
-	},
+
 	methods: {
 		//前往列表页面
 		goList(type,name){

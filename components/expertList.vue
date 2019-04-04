@@ -15,8 +15,8 @@
 						</view>
 						<view class="submit-btn">私聊</view>
 					</view>
-					<view class="introduce textOver3">
-						<view v-html="item.PersonalIntroduction"></view>
+					<view class="introduce ">
+						<view v-html="item.PersonalIntroduction" class="textOver3"></view>
 					</view>
 					<view class="price">
 						<view class="address">{{

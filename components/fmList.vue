@@ -1,6 +1,6 @@
 <template>
 	<view class="fm-list-com">
-		<view  @tap="goView(item.Id,item.CustomerId)" class='item flex-row' v-for="(item,index) in data" :key="index">
+		<view  @tap="goView(item.Id,item.CustomerId)" class='item flex-row' v-for="(item,index) in data.length?data:list" :key="index">
 			<view class='img-box'>
 				<image :src="item.BackgroundPictureUrl"></image>
 			</view>
@@ -18,9 +18,39 @@
 </template>
 
 <script>
+import api from '../api/fm.js';
 export default {
-    props: ['data'],
+    props: {
+    	data:{
+    		type:Array,
+    		default:()=>{
+    			return []
+    		}
+    	},
+    	pageSize:{
+    		type:Number,
+    		default:10
+    	}
+    },
+	data(){
+		return {
+			list:[]
+		}
+	},
+	onLoad(){
+		this.list=this.data;
+		//发现模块展示
+		if(!this.list.length){
+			 this.getList();
+		}
+		
+	},
     methods: {
+		getList(){
+			api.getList().then(res=>{
+				this.list=res.Data;
+			})
+		},
         goView(id) {
 			let data=this.data;
 			this.$store.commit('setFmList',this.data);

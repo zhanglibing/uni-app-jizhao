@@ -1,6 +1,6 @@
 <template>
 	<view class="course-list-com">
-		<view :data-id='item.Id' @tap="goView" class='item flex-row' v-for="(item,index) in data" :key="index">
+		<view :data-id='item.Id' @tap="goView" class='item flex-row' v-for="(item,index) in data.length?data:list" :key="index">
 			<view class='img-box'>
 				<image :src="item.BannerPictureUrl"></image>
 			</view>
@@ -20,14 +20,47 @@
 </template>
 
 <script>
+import api from '../api/course.js';
 export default {
-    props: ['data'],
+	props: {
+		data:{
+			type:Array,
+			default:()=>{
+				return []
+			}
+		},
+		pageSize:{
+			type:Number,
+			default:10
+		}
+	},
 	data(){
 		return{
+			list:[],
 			platform:''
 		}
 	},
+	onLoad(){
+		//发现模块展示
+		if(!this.list.length){
+			 this.getList();
+		}
+		
+	},
     methods: {
+		async getList(){
+			let { Page, PageSize } = this;
+			let { Data, Total } = await api.getList({
+			    Page:1,
+			    PageSize:5,
+				IsShow:true,
+				IsPrice: false,
+				CategoryId:0,
+			    IsNew: false,
+				CustomeType: 1
+			});
+			this.list = Data;
+		},
         goView(e) {
             wx.navigateTo({
                 url: '/pages/course/view/view?id=' + e.currentTarget.dataset.id
@@ -43,12 +76,14 @@ export default {
 
 <style lang="scss">
 .course-list-com {
-	padding: 40upx 30upx;
+	padding: 0 30upx 30upx;
 	background: #fff;
     .item {
         margin-bottom: 40upx;
         color: #666;
-       
+		&:last-child{
+			margin-bottom: 0;
+		}
         .img-box {
             width: 300upx;
             height: 200upx;

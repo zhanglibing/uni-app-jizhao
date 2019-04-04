@@ -40,10 +40,7 @@
 		</view>
 		<!-- 热门专家 -->
 		<view class="expert-box">
-			<view class="common-header">
-				<view class="title">热门专家</view>
-				<navigator open-type="switchTab" url="../experts/experts" class="more">更多</navigator>
-			</view>
+			<commonTitle url="../experts/experts" openType="switchTab">热门专家</commonTitle>
 			<scroll-view class="scroll-view_H" scroll-x="true" @scroll="scroll" scroll-left="120">
 				<view class="scroll-view-item_H scroll-expert" v-for="(item, index) in consultation" :key="index">
 					<view class="item-box" @tap="goExpert(item.Id)">
@@ -66,35 +63,11 @@
 		</view>
 
 		<!-- 热门测试 -->
-		<view class="test-box">
-			<view class="common-header">
-				<view class="title">热门测试</view> 
-				<navigator url="../test/test" class="more">更多</navigator>
-			</view>
-			<scroll-view class="scroll-view_H" scroll-x="true" @scroll="scroll" scroll-left="120">
-				<view class="scroll-view-item_H scroll-test" v-for="(item, index) in testList" :key="index">
-					<view class="item-box" @tap="goTest(item.Id)">
-						<view class="img-box">
-							<image :src="item.BannerPictureUrl" mode=""></image>
-						</view>
-						<view class="title textOver1">
-							{{item.Title}}
-						</view>
-						<view class="num">
-							{{item.TestQuantity}}人已测试
-						</view>
-					</view>
-				</view>
-			</scroll-view>
-		</view>
-
+        <hostTest></hostTest>
 		<!-- 文章分享 -->
 		<view class="article-box">
-			<view class="common-header">
-				<view class="title">文章分享</view>
-				<navigator url="../article/article" class="more">更多</navigator>
-			</view>
-			<article-list :data="list"></article-list>
+			<commonTitle url="../article/article">文章分享</commonTitle>
+			<article-list></article-list>
 		</view>
 
 		
@@ -103,14 +76,18 @@
 
 <script>
 import articleList from '../../components/articleList.vue';
+import hostTest from '../../components/hostTest.vue';
+import commonTitle from '../../components/commonTitle.vue';
 import test from '../../api/test.js';
 import { getList } from '../../api/consultation.js';
-import article from '../../api/article.js';
+
 
 import { mapState } from 'vuex';
 export default {
 	components: {
-		articleList
+		articleList,
+		hostTest,
+		commonTitle
 	},
 	data() {
 		return {
@@ -126,21 +103,14 @@ export default {
 			],
 			bannerl:this.$imgPrePath+'banner1.png',
 			banner2:this.$imgPrePath+'banner2.png',
-			list: [],
 			consultation: [],
-			testList: []
+		
 		};
 	},
 	onLoad() {
 		getList().then(res => {
 			this.consultation = res.customers;
 		});
-		test.getList().then(res => {
-			this.testList=res.Data;
-		});
-		article.getArticleList().then(res=>{
-			this.list = res.list;
-		})
 	},
 	methods: {
 		goExpert(id){
@@ -155,11 +125,7 @@ export default {
 				url:'/pages/experts/experts'
 			})
 		},
-		goTest(id){
-			uni.navigateTo({
-				url:'/pages/test/view/view?id='+id
-			})
-		}
+		
 	},
 		//转发话术
 	onShareAppMessage(res) {
@@ -272,52 +238,13 @@ export default {
 	}
 }
 
-/* 头部公用样式 */
-.common-header {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0 20upx;
-	height: 120upx;
-	background: #fff;
-	.title {
-		font-size: 42upx;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		&::before{
-			content:'';
-			width:8upx;
-			height:0upx;
-			background: #000;
-			border-bottom:20upx solid #095289;
-			border-top:20upx solid #F5A623;
-			margin-right:30upx;
-		}
-		
-	}
-	.more {
-		width: 137upx;
-		height: 56upx;
-		border-radius: 34upx;
-		border: 1px solid #D5D5D5;
-		text-align: center;
-		color: #666;
-		font-size: 12px;
-		line-height: 56upx;
-	}
-}
+
 .expert-box{
 	margin-bottom: 40upx;
 	padding-bottom: 40upx;
 	background: #fff;
 }
-.test-box{
-	margin-bottom: 40upx;
-	padding-bottom: 40upx;
-	background: #fff;
-}
+
 .scroll-Y {
 	height: 300upx;
 }
@@ -379,28 +306,6 @@ export default {
 					line-height: 36upx;
 				}
 			}
-		}
-	}
-	.scroll-test{
-		width: 348upx;
-		height:300upx;
-		.img-box{
-			width:348upx;
-			height:190upx;
-			background:rgba(216,216,216,1);
-			border-radius:20upx;
-			border:1px solid rgba(151,151,151,1);
-			overflow: hidden;
-			margin-bottom: 30upx;
-		}
-		.title{
-			font-size: 24upx;
-			margin-bottom: 20upx;
-			white-space: normal;
-		}
-		.num{
-			font-size: 10px;
-			color:#666;
 		}
 	}
 }

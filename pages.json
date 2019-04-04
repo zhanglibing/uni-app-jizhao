@@ -1,12 +1,18 @@
 {
     "pages" : [
-		
 		{
 		    "path" : "pages/index/index",
 		    "style" : {
 		        "navigationBarTitleText" : "幸福谋方"
 		    }
 		},
+		 {
+		    "path" : "pages/find/find",
+		    "style" : {
+		        "navigationBarTitleText" : "发现"
+		    }
+		},
+		
 		{
 		    "path" : "pages/course/view/view",
 		    "style" : {
@@ -300,12 +306,7 @@
                 "navigationBarTitleText" : "测试结果"
             }
         },
-        {
-            "path" : "pages/find/find",
-            "style" : {
-                "navigationBarTitleText" : "发现"
-            }
-        },
+       
         {
             "path" : "pages/fm/list/list",
             "style" : {

@@ -1,6 +1,6 @@
 <template>
 	<view class="article-list-com">
-		<view  @tap="goView(item.Id,item.CustomerId)" class='item flex-row' v-for="(item,index) in data" :key="index">
+		<view  @tap="goView(item.Id,item.CustomerId)" class='item flex-row' v-for="(item,index) in data.length?data:list" :key="index">
 			<view class='img-box'>
 				<image :src="item.imgPath"></image>
 			</view>
@@ -18,21 +18,47 @@
 </template>
 
 <script>
+import article from '../api/article.js';
 export default {
-    props: ['data'],
+    props: {
+		data:{
+			type:Array,
+			default:()=>{
+				return []
+			}
+		},
+		pageSize:{
+			type:Number,
+			default:10
+		}
+	},
+	data(){
+		return{
+			list:[]
+		}
+	},
+	onLoad(){
+		if(!this.data.length){
+			article.getArticleList({PageSize:this.pageSize}).then(res=>{
+				this.list = res.list;
+			})
+		}
+		
+	},
     methods: {
         goView(id,userId) {
             wx.navigateTo({
                 url: `/pages/article/view/view?id=${id}&userId=${userId}`
             });
-        }
+        },
+		
     }
 };
 </script>
 
 <style lang="scss">
 .article-list-com {
-	padding: 20upx 30upx;
+	padding: 0 30upx 20upx;
 	background: #fff;
     .item {
         margin-bottom: 40upx;

@@ -31,7 +31,6 @@ function getOption(obj) {
     customerBalance=0;
     needMoney= price;
   }
-  console.log(obj) ;
   return {
     ProductType: 'V',
     ...obj,
@@ -50,29 +49,43 @@ function wxpay(obj) {
 	 uni.showModal({
 	 	title:'H5页面暂时不支持支付功能'
 	 })
-	 wx.hideLoading();
 	 return false;
 	//#endif
-	
+	 wx.hideLoading();
   //先调跟新用户余额防止其他平台变更余额导致余额不一致
   api.getUserInfo(true).then(res=>{
     let option = getOption(obj);
-		
     let lastUrl = obj.orderId ?'MiniOrderGo':'MiniOrder';
     option.type=1;  //区分咨询师和普通用户 
-	
-    Ajax(`OrderHandle/${lastUrl}`, option).then(res => {
-        //调用微信支付
-      wxPaying(res.GetPrepayid, option)
-    }).catch(res => {
-      wx.showToast({
-        title: res.MiniOrder,
-        icon: "none"
-      })
-    })
+		if(option.customerBalance){
+			uni.showModal({
+				 title:'消费提醒',
+				 content:`当前账户余额为${option.customerBalance/100}元 ,购买时先扣所剩余额,还需付款${option.needMoney/100}元`,
+				 cancelText:'在看看',
+				 confirmText:'确认购买',
+				 success(res) {
+					 if(res.confirm){
+						 paying(lastUrl,option);
+					 }
+				 }
+			})
+		}else{
+			 paying(lastUrl,option);
+		} 
   })
 }
 
+function paying(lastUrl,option){
+	Ajax(`OrderHandle/${lastUrl}`, option).then(res => {
+	    //调用微信支付
+	  wxPaying(res.GetPrepayid, option)
+	}).catch(res => {
+	  wx.showToast({
+	    title: res.MiniOrder,
+	    icon: "none"
+	  })
+	})
+}
 
 //调用微信支付
 function wxPaying(params, option,url){
