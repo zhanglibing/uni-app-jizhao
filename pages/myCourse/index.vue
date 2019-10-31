@@ -24,13 +24,14 @@
 					</view>
 				</view>
 				<view class='btn-box flex-row'>
-					<text>总价: {{ item.OrderTotal }}元</text>
+					<text v-if="platform!='ios'">总价: {{ item.OrderTotal }}元</text>
+					<text v-else=""></text>
 					<view class="flex-row">
 						<block v-if="item.OrderStatus==10">
 							<view class='btn' @tap='closeOrder(item.Id)'>取消订单</view>
 							<view class='btn' @tap='payOrder(item)'>立即支付</view>
 						</block>
-						<view class='submit-btn'  v-if="item.OrderStatus<15&&item.OrderStatus>11" @tap='goWatch(item.ProductId)'>观看视频</view>
+						<view class='submit-btn'  v-if="item.OrderStatus<15&&item.OrderStatus>=11" @tap='goWatch(item.ProductId)'>观看视频</view>
 						<view v-if="item.OrderStatus==11" class='btn'  @tap='goEvaluate(item)'>立即评价</view>
 						<view v-if="item.OrderStatus==15" class='btn'>交易已关闭</view>
 					</view>
@@ -49,6 +50,7 @@
 
 		data() {
 			return {
+				platform:'',
 				loadingType:0,
 				status: {
 					10: "待支付",
@@ -83,6 +85,7 @@
 			};
 		},
 		onLoad: function(options) {
+			this.platform=this.$store.state.platform;
 			this.orderStatus = options.type ? options.type : ''
 		},
 		methods: {

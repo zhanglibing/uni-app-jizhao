@@ -67,6 +67,11 @@
 					<input type='text' v-model="edit.Recommender" placeholder='推荐人'></input>
 				</view>
 			</label>
+			<view class="label">
+				<radio color="#095389" @click="radioChange" :checked="isChecked" />
+				<text @tap="goConsulting">同意专家入住协议</text>
+				
+			</view>
 			<view class="btn-box">
 				<view class="submit-btn btn" @tap="pre">上一步</view>
 				<view @tap='submit' class="submit-btn">提交</view>
@@ -88,9 +93,11 @@ export default {
 	},
     data() {
         return {
+			isChecked:false,
 			GoodFiel:[],
 			index:0,
-			array:['请选择资质名称','心理咨询师二级','心理咨询师三级','婚姻家庭咨询师一级','婚姻家庭咨询师二级','心理治疗师','健康管理师','社会工作师'],
+			array:['请选择资质名称','心理咨询师二级','心理咨询师三级','婚姻家庭咨询师一级',
+			'婚姻家庭咨询师二级','心理治疗师','健康管理师','社会工作师','其他证书'],
 			ProfessionalLicensesUrl: '',  //资质证明
 			edit:{
 			    ProfessionalLicensesTitle: '',
@@ -128,36 +135,49 @@ export default {
 			 Skilled
 		} = app;
 		if(app){
-			this.index=this.array.indexOf(ProfessionalLicensesTitle)
+			if(ProfessionalLicensesTitle){
+				this.index=this.array.indexOf(ProfessionalLicensesTitle)
+			}
 			this.ProfessionalLicensesUrl = ProfessionalLicensesUrl+'?'+Math.random();
 			this.StatusForConsultant = StatusForConsultant;
 			this.activeIndex = StatusForConsultant?StatusForConsultant:0;
-			this.edit = {  //第一步数据初始化
+			this.edit =Object.assign({},this.edit, {  //第一步数据初始化
 				  ProfessionalLicensesTitle,
 				  ProfessionalLicenses,
 				  ProfessionalLicenseNumber,
 				  WorkingYears,
 				  ConsultingHours,
 				  SerivcePrice,
-				  CareerBackground:CareerBackground.replace(/_@/g,'  '),
-				  PersonalIntroduction:PersonalIntroduction.replace(/_@/g,'  '),
+				  CareerBackground:CareerBackground?CareerBackground.replace(/_@/g,'  '):'',
+				  PersonalIntroduction:PersonalIntroduction?PersonalIntroduction.replace(/_@/g,'  '):'',
 				  PracticeStyle,
 				  Recommender,
 				  Skilled
-			}
+			})
 		}
         //获取擅长领域
 		api.getGoodFile().then(res => {
-			let arr=Skilled.split(',');
-			res.forEach(val=>{
-				if(arr.indexOf(val.GoodField)!=-1){
-					val.checked=true;
-				}
-			})
+			if(Skilled){
+				let arr=Skilled.split(',');
+				res.forEach(val=>{
+					if(arr.indexOf(val.GoodField)!=-1){
+						val.checked=true;
+					}
+				})
+			}
         	this.GoodFiel = res;
         });
     },
     methods: {
+		goConsulting(){
+			uni.navigateTo({
+				url: '/pages/expertAgreement/expertAgreement',
+			});
+		},
+		radioChange(e){
+			
+			this.isChecked=!this.isChecked;
+		},
 		pre(){
 			uni.navigateTo({
 				url:'../basic/basic'
@@ -170,7 +190,9 @@ export default {
 		//资质名称
 		bindPickerChange(e) {
 			this.index = e.target.value;
+			console.log(this.index)
 			this.edit.ProfessionalLicensesTitle = this.array[e.target.value];
+			console.log(this.edit.ProfessionalLicensesTitle)
 		},
 		//获取子组件数据
 		getImgId(val){
@@ -183,6 +205,20 @@ export default {
         //保存用户信息
         submit() {
 			if(!this.checkSecond(this.edit)){return false;}
+			let that=this;
+			if(!this.isChecked){
+				uni.showModal({
+					title:'提示',
+					content:'请勾选协议',
+					confirmText:'确认勾选',
+					success(res) {
+						if(res.confirm){
+							that.radioChange()
+						}
+					}
+				})
+				return false;
+			}
             BeConsultant_confirm(this.edit).then(res => {
                 wx.showToast({
                     title: '保存成功',
@@ -214,10 +250,10 @@ export default {
 			  this.$msg.error("请填写从业年限");
 			  return false;
 			}
-			if (!option.ConsultingHours) {
-			  this.$msg.error("累计个案不能为空");
-			  return false;
-			}
+// 			if (!option.ConsultingHours) {
+// 			  this.$msg.error("累计个案不能为空");
+// 			  return false;
+// 			}
 			if (!option.CareerBackground) {
 			  this.$msg.error("受训背景不能为空");
 			  return false;
@@ -270,8 +306,16 @@ export default {
     border-radius: 50%;
     overflow: hidden;
 }
-
-.edit-box>label {
+.edit-box .label {
+	padding:0 30upx;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	text{
+		text-decoration: underline;
+	}
+}
+.edit-box>label{
 	padding:0 30upx;
     font-size: 34upx;
     min-height: 88upx;

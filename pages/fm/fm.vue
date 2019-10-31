@@ -26,7 +26,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="model-box">
+		<view class="fm-list-box">
 		   <view class="model-title">推荐 
 		     <navigator url="list/list">更多</navigator>
 		   </view>
@@ -109,6 +109,14 @@ export default {
 	background: #fff;
 	padding:30upx 40upx;
 	margin-bottom: 30upx;
+}
+.fm-list-box{
+	background: #fff;
+	padding:30upx 0 0;
+	margin-bottom: 30upx;
+	.model-title{
+		padding:0 40upx;
+	}
 }
 /*
   心情模块

@@ -80,7 +80,7 @@
 
 <style lang="scss" scoped="">
 .page-fm-list{
-   padding:30upx 40upx;
+   padding-top:30upx;
    background: #fff;
 }
 </style>

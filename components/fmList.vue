@@ -64,8 +64,11 @@ export default {
 
 <style lang="scss">
 .fm-list-com {
+	background: #fff;
+	padding:0 40upx 40upx;
     .item {
         margin-bottom: 40upx;
+	
         color: #666;
         .img-box {
             width: 160upx;

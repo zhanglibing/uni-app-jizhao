@@ -37,7 +37,9 @@
 		    	</view>
 		    
 		</view>
-		<courseList :data="list"></courseList>
+		<view class="list-box">
+			<courseList :data="list"></courseList>
+		</view>
 	    <uni-load-more v-if="list.length" :loadingType="loadingType"></uni-load-more>
 	</view>
 	
@@ -160,7 +162,7 @@ export default {
        this.Page++;
        this.getList();
     },
-			//转发话术
+	//转发话术
 	onShareAppMessage(res) {
 		
 	},
@@ -270,6 +272,9 @@ export default {
 			}
 		}
 	}
-	
+	.list-box{
+		background: #fff;
+		padding-top: 30upx;
+	}
 
 </style>

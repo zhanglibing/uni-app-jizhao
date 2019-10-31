@@ -7,8 +7,7 @@ function getOption(obj) {
     sessionId,
     userInfo
   } = store.state;
-	
-	console.log(sessionId)
+  console.log(sessionId)
   let CustomerBalance = userInfo.CustomerBalance;
   let price = obj.price * 100;
 	//咨询订单
@@ -57,11 +56,11 @@ function wxpay(obj) {
     let option = getOption(obj);
     let lastUrl = obj.orderId ?'MiniOrderGo':'MiniOrder';
     option.type=1;  //区分咨询师和普通用户 
-		if(option.customerBalance){
+		if(option.customerBalance&&option.price){
 			uni.showModal({
 				 title:'消费提醒',
 				 content:`当前账户余额为${option.customerBalance/100}元 ,购买时先扣所剩余额,还需付款${option.needMoney/100}元`,
-				 cancelText:'在看看',
+				 cancelText:'再看看',
 				 confirmText:'确认购买',
 				 success(res) {
 					 if(res.confirm){

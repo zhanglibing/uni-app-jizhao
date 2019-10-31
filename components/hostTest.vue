@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="test-box">
-			<commonTitle url="../test/test">热门测试</commonTitle>
+			
 			<scroll-view class="scroll-view_H" scroll-x="true" @scroll="scroll" scroll-left="120">
 				<view class="scroll-view-item_H scroll-test" v-for="(item, index) in testList" :key="index">
 					<view class="item-box" @tap="goTest(item.Id)">

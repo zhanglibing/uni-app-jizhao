@@ -1,6 +1,6 @@
 <template>
 	 <view class='list-bot'>
-    <topic-list :data="list"></topic-list>
+    <topic-list :data="list" :isShow="true"></topic-list>
   </view>
 </template>
 

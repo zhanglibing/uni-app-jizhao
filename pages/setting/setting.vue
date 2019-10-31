@@ -22,7 +22,9 @@ export default {
 	methods:{
 		//切换账号
 		logOut(){
+		
 			logOut();
+			this.$store.commit('setUserInfo','')
 		}
 		
 	}

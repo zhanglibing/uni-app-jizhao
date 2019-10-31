@@ -3,7 +3,9 @@
  *email:1053081179@qq.com
  *功能: 测试题计算规则
  */
-
+function replaceEmpty(str){
+  return str.replace(/_@/g, '<br>').replace(/\n/g, '<br>').replace(/_#/g, '&nbsp;').replace(/\r/g, '&nbsp;');
+}
 function filterLen(arr, type) {
   return arr.filter(val => val == type).length;
 }
@@ -223,7 +225,7 @@ function getResults(info, results) {
         if (junfen >= v.start * 1 && junfen <= v.end * 1) {
           obj3[val.qidName] = {
             degree: i,  //星级
-            degreeText: v.degree, //严重等级
+            degreeText: replaceEmpty(v.degree), //严重等级
           }
         }
       })
@@ -270,13 +272,13 @@ function getResults(info, results) {
     let result = [];
     // yinziArr.forEach(val => {
     //   if (val.degree) {
-        PsychtestAnswers.forEach(v => {
-          result.push(v);  //暂时全部展示
-          // if (v.ScoreStart == val.name) {
-          //   result.push(v);
-          // }
-        })
-    //   }
+    PsychtestAnswers.forEach(v => {
+      result.push(v);  //暂时全部展示
+      // if (v.ScoreStart == val.name) {
+      //   result.push(v);
+      // }
+    })
+    // }
     // })
 
     let zong = JSON.parse(Formulas3);
@@ -296,30 +298,30 @@ function getResults(info, results) {
     return zonghe
   }
   //分组积分，分组区间对应结果，展示分组对应结果整合结果
-  else if(Rules == 7){
+  else if (Rules == 7) {
     let {PsychtestAnswers, Formulas2, SubjectModels} = info;
     let res = JSON.parse(Formulas2); //分子对应区间 对应结果
     let obj = getZuheScore(info, results);  //存放组合以及对应的分数 (组合名称作为key   val为总分或者平均数)
     console.log(obj)
-    let msg='';
+    let msg = '';
     res.forEach(val => {
       //求得分区间
       let junfen = obj[val.qidName];
       val.arr.forEach((v, i) => {
         if (junfen >= v.start * 1 && junfen <= v.end * 1) {
-          msg+=`${v.degree} <br>`
+          msg += `${replaceEmpty(v.degree)} <br>`
         }
       })
     })
     return msg;
   }
   //分组积分，得分排序展示结果
-  else{
+  else if (Rules == 8) {
     let {Formulas2} = info;
     let res = JSON.parse(Formulas2); //分子对应区间 对应结果
-    let resultObj={};  //组合名称为key   组合对应结果为value
-    res.forEach(val=>{
-      resultObj[val.qidName]=val.result;
+    let resultObj = {};  //组合名称为key   组合对应结果为value
+    res.forEach(val => {
+      resultObj[val.qidName] = val.result;
     })
     let obj = getZuheScore(info, results);  //存放组合以及对应的分数 (组合名称作为key   val为总分或者平均数)
     let arr = [];
@@ -328,10 +330,35 @@ function getResults(info, results) {
     })
     //数组对象排序
     arr.sort(compare('score'));
-    let msg='';
-    arr.forEach(val=>{
-      msg+=`${resultObj[val.name]}</br>`
+    let msg = '';
+    arr.forEach(val => {
+      msg += `${resultObj[val.name]}</br>`
     })
+    return msg;
+  }
+  //  分组积分，卡特尔16PF性格测验专用
+  else {
+    let {PsychtestAnswers, Formulas2, Formulas3, SubjectModels} = info;
+    let res = JSON.parse(Formulas2); //分子对应区间 对应结果
+    let res2 = JSON.parse(Formulas3); //分子对应区间 对应标准分
+    let obj = getZuheScore(info, results);  //存放组合以及对应的分数 (组合名称作为key   val为总分或者平均数)
+    //计算标准分
+    res2.forEach(val => {
+      let oldScore = obj[val.qidName];
+      let result = val.arr.filter(v => v.start <= oldScore && v.end >= oldScore)[0];
+      obj[val.qidName] = result.score;
+    })
+    let msg = '';
+    res.forEach(val => {
+      //求得分区间
+      let junfen = obj[val.qidName];
+      val.arr.forEach((v, i) => {
+        if (junfen >= v.start * 1 && junfen <= v.end * 1) {
+          msg += `${replaceEmpty(v.degree)} <br><br>`
+        }
+      })
+    })
+		console.log(msg);
     return msg;
   }
 

@@ -13,7 +13,6 @@
 			<navigator url="fogrotPsd/fogrotPsd">忘记密码</navigator>
 		</view>
 		<view @tap="submit" class="block-btn">登录</view>
-
 	</view>
 
 </template>
@@ -44,8 +43,8 @@
 			//登录
 			submit() {
 				let unionid=this.$store.state.unionid;
-				console.log('获取uid')
-				console.log(unionid)
+// 				console.log('获取uid')
+// 				console.log(unionid)
 				if(unionid){
 					this.option.unionid=unionid;
 				}

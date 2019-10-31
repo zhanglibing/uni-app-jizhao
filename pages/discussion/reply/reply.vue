@@ -2,12 +2,17 @@
 	<view class="edit-box">
 		<textarea v-model="Contenttext" placeholder="请填写回复内容"></textarea>
 		<view @tap="formSubmit" class="block-btn">发送</view>
+		<login></login>
 	</view>
 </template>
 
 <script>
 import api from '../../../api/article.js';
+import login from '../../../components/login'
 export default {
+	components:{
+		login
+	},
 	data() {
 		return {
 			option: {},

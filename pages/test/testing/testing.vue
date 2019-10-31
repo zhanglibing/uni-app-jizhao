@@ -59,9 +59,15 @@ export default {
 		};
 	},
 	onLoad(option) {
-		this.id=option.id;
+		let {id,orderId}=option;
+		this.id=id;
+		this.orderId=orderId;
 		//获取测试题
+		uni.showLoading({
+			title:'加载中'
+		})
 		api.getTestDetails(this.id).then(res => {
+			uni.hideLoading();
 			this.info = res;
 		});
 	},
@@ -102,12 +108,13 @@ export default {
 			let { BannerPictureUrl, Category, Description, Rules } = this.info;
 			let params = {
 				PsychtestId: this.id,
+				orderId:this.orderId,
 				CustomerAnswer: JSON.stringify({
 					imgUrl: BannerPictureUrl,
 					Category,
 					Description,
 					Rules,
-					resultMsg: '测试结果:' + this.resultMsg,
+					resultMsg:this.resultMsg,
 					results: this.results
 				})
 			};
@@ -115,7 +122,7 @@ export default {
 			api.saveUserTest(params).then(res => {
 				let {Id, PsychtestId, Title} = res;
 				let type = Title == 'SCL-90 症状自测量表' || Rules == 6?'get':'';
-				uni.navigateTo({
+				uni.redirectTo({
 					url:`../result/result?id=${PsychtestId}&PsychtestId=${Id}&type=${type}`
 				})
 			});

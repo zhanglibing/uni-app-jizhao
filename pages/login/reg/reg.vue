@@ -1,8 +1,12 @@
 <template>
 	<view class='login-box'>
 		<view class="row">
+			<view class="title">昵称</view>
+			<input v-model="option.NickName" @input="blur"   placeholder='请输入昵称'></input>
+		</view>
+		<view class="row">
 			<view class="title">账号</view>
-			<input v-model="option.Username" @blur="blur" :maxlength="11" type='number' placeholder='请输入账号'></input>
+			<input v-model="option.Username" @input="blur" :maxlength="11" type='number' placeholder='请输入手机号'></input>
 		</view>
 		<view class="row sms">
 			<view class="title">短信验证码</view>
@@ -28,102 +32,110 @@
 </template>
 
 <script>
-	import {sendSms,reg,phoneIsReg} from '../../../api/login.js'
-	
+	import {
+		sendSms,
+		reg,
+		phoneIsReg
+	} from '../../../api/login.js'
+
 	export default {
 		data() {
 			return {
 				userNameIsReg: false, //判断用户是否已经注册
-				option:{
-					Password:'',
-					Username:'',
-					repsd:'',
-					VerificationCode:'',
-					NickName:''
+				option: {
+					Password: '',
+					Username: '',
+					repsd: '',
+					VerificationCode: '',
+					NickName: ''
 				},
-				isReg:true,
+				isReg: true,
 				count: 60, //倒计时
 			};
 		},
 		onShow() {
-			this.option.NickName=this.$store.state.wxInfo.nickName;
+			this.option.NickName = this.$store.state.wxInfo.nickName;
 		},
-		methods:{
-			 //确认找回密码
-			submitPsdChange(){
-				if(!this.canSubmit){
+		methods: {
+			//确认找回密码
+			submitPsdChange() {
+				if (!this.canSubmit) {
 					return false;
 				}
 				if (!this.checkPsdAndCode()) {
-				  return false
+					return false
 				}
+				this.canSubmit=false;
 				reg(this.option).then(res => {
 					uni.showToast({
-						icon:"success",
-						title:'注册成功'
+						title: '注册成功',
+						icon: "success",
 					})
-					setTimeout(()=>{
+					setTimeout(() => {
 						uni.navigateTo({
-							url:'../login?type=noBack'
+							url: '../login?type=noBack'
 						})
-					},1000)
-				}).catch(res=>{
+					}, 1000)
+				}).catch(res => {
 					this.msg(res)
 				})
 			},
-		    //发送短信验证码
-			send(){
-				if(!this.isReg){
+			//发送短信验证码
+			send() {
+				if (!this.isReg) {
 					this.msg("该手机已经注册");
 					return false;
 				}
-				let {Username}=this.option;
+				let {
+					Username
+				} = this.option;
 				let option = {
-				  tel: Username,
-				  Frompage: "注册",
-				}	
-				if(Username.length<11){
+					tel: Username,
+					Frompage: "注册",
+				}
+				if (Username.length < 11) {
 					uni.showToast({
-						icon:"none",
-						title:"请输入正确的手机号"
+						icon: "none",
+						title: "请输入正确的手机号"
 					})
 					return false;
 				}
-				sendSms(option).then(res=>{
+				sendSms(option).then(res => {
 					uni.showToast({
-						icon:"none",
-						title:"短信发送成功"
+						icon: "none",
+						title: "短信发送成功"
 					})
 					this.count = 59;
 					this.setTime();
 				})
 			},
-		    //验证手机号是否已经注册
-		    blur(){
-		    	if(this.option.Username<11){
-		    		return false;
-		    	}
-		    	phoneIsReg(this.option.Username).then(res=>{
-		    		this.isReg=res;
-		    		if(!res){
-		    			this.msg("该手机已经注册");
-		    		}
-		    		
-		    	})
-		    },
-			 //设置倒计时
-			setTime(){
+			//验证手机号是否已经注册
+			blur() {
+				if (this.option.Username.length < 11) {
+					this.isReg = true;
+					return false;
+				}
+				phoneIsReg(this.option.Username).then(res => {
+					this.isReg = res;
+					if (!res) {
+						this.msg("该手机已经注册");
+					}
+
+				})
+			},
+			//设置倒计时
+			setTime() {
 				let a = 0;
 				let t = setInterval(() => {
-				  this.count--;
-				  if (this.count == 0) {
-					clearInterval(t)
-				  }
+					this.count--;
+					if (this.count == 0) {
+						clearInterval(t)
+					}
 				}, 1000)
 			},
-		    //验证
-			checkPsdAndCode(){
-				if(this.isReg){
+			//验证
+			checkPsdAndCode() {
+				if (!this.isReg) {
 					this.msg("该手机已经注册");
 					return false;
 				}
@@ -131,47 +143,52 @@
 					Password,
 					Username,
 					repsd,
+					NickName,
 					VerificationCode
-				}=this.option;
+				} = this.option;
+				if (!NickName) {
+					this.msg("昵称不能为空");
+					return false;
+				}
 				if (!VerificationCode) {
-				  this.msg("短信验证码不能为空");
-				  return false;
+					this.msg("短信验证码不能为空");
+					return false;
 				}
 				if (!Password) {
-				  this.msg("密码不能为空");
-				  return false;
+					this.msg("密码不能为空");
+					return false;
 				}
 				if (Password.length < 6) {
-				  this.msg("密码长度至少为6位");
-				  return false;
+					this.msg("密码长度至少为6位");
+					return false;
 				}
 				if (!repsd) {
-				  this.msg("确认密码不能为空");
-				  return false;
+					this.msg("确认密码不能为空");
+					return false;
 				}
 				if (repsd != Password) {
-				  this.msg("两次密码输入不一致");
-				  return false;
+					this.msg("两次密码输入不一致");
+					return false;
 				}
 				return true;
 			},
 			//提示语
-			msg(msg){
+			msg(msg) {
 				uni.showToast({
-					icon:"none",
-					title:msg
+					title: msg,
+					icon: "none",
 				})
 			}
 		},
-		computed:{
-			canSubmit(){
+		computed: {
+			canSubmit() {
 				let {
 					Password,
 					Username,
 					repsd,
 					VerificationCode
-				}=this.option;
-				return Username&&Password&&repsd&&VerificationCode;
+				} = this.option;
+				return Username && Password && repsd && VerificationCode;
 			}
 		}
 	}
@@ -182,12 +199,15 @@
 		padding: 30upx 40upx;
 		box-sizing: border-box;
 	}
-	.row{
+
+	.row {
 		margin-bottom: 40upx;
-		.title{
+
+		.title {
 			margin-bottom: 15upx;
 			font-size: 30upx;
-		} 
+		}
+
 		input {
 			border: 1px solid #ccc;
 			background: #fff;
@@ -196,31 +216,36 @@
 			border-radius: 10upx;
 		}
 	}
-    .sms-box{
+
+	.sms-box {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-		input{
+
+		input {
 			flex: 1;
 		}
-		.submit-btn{
-			width:220upx;
+
+		.submit-btn {
+			width: 220upx;
 			margin-left: 30upx;
 			line-height: 100upx;
-			&.disabled-btn{
+
+			&.disabled-btn {
 				background: #DADADA;
-				color:#fff;
+				color: #fff;
 			}
 		}
-		
+
 	}
-	.block-btn{
-		width:100%;
-		height:100upx;
+
+	.block-btn {
+		width: 100%;
+		height: 100upx;
 		line-height: 100upx;
 	}
-	
-	.seting-box{
+
+	.seting-box {
 		margin-bottom: 30upx;
 	}
 </style>

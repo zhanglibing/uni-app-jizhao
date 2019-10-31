@@ -42,6 +42,19 @@ async function getCourseList(params) {
   })
 }
 
+//获取测试订单列表
+async function getTestList(params) {
+  return new Promise((resolve, reject) => {
+    Ajax('/OrderHandle/GetConsultantOrderList', {
+      customerId:getUserId(),
+      ProductType: 'PT',
+      ...params
+    }).then(res => {
+      resolve(res.GetConsultantOrderList)
+    })
+  })
+}
+
 
 // 获取子订单
 async function getOrderChild(orderId) {
@@ -98,6 +111,21 @@ async function courseEvalute(params) {
   })
 }
 
+//测试评价
+async function testEvalute(params) {
+  let option={
+    CustomerId: getUserId(),
+    ...params
+  }
+  return new Promise((resolve, reject) => {
+    Ajax('PsychtestHandle/CreateComment', option).then(res => {
+        resolve('ok')
+    })
+  })
+}
+
+
+
 //咨询订单评价
 async function orderEvalute(params) {
   let option={
@@ -124,16 +152,28 @@ async function getEssaysRecord(orderId) {
   })
 }
 
+//删除测试订单
+async function deleteTestOrder(OrderId) {
+  return new Promise((resolve, reject) => {
+		Ajax('/OrderHandle/DeleteOrder', {OrderId}).then(res => {
+		    resolve(res.GetOrderEssaysRecords_ByOrderId)
+		})
+  })
+}
+
 export default {
   getList,
   getOrderChild,
   getDetailsById,
   getOrderComment,
   getCourseList,
+	getTestList,
   closedOrder,
   courseEvalute,
 	orderEvalute,
   getEssaysRecord,
-	getTime
+	getTime,
+	testEvalute,
+	deleteTestOrder
 
 }

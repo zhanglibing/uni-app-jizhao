@@ -8,7 +8,11 @@
 			</label>
 			<label>
 				<text>真实姓名</text>
-				<input type="text" placeholder="请输入真实姓名" v-model.trim="edit.RealName">
+				<input type="text" placeholder="请输入真实姓名" v-model.trim="edit.NickName">
+			</label>
+			<label>
+				<text>昵称</text>
+				<input type="text" placeholder="请输入昵称" v-model.trim="edit.RealName">
 			</label>
 			<label class="photoId">
 				<view class="img-upload">
@@ -47,13 +51,13 @@
 			<label>
 				<text>证件类型</text>
 				<view>
-					<input type="text" :disabled="true" placeholder="请输入昵称" value="大陆身份证">
+					<input type="text" :disabled="true"  value="大陆身份证">
 				</view>
 			</label>
 			<label>
 				<text>证件号码</text>
 				<view>
-					<input type='idcard' v-model="edit.IDNumber" placeholder='邮箱'></input>
+					<input type='idcard' v-model="edit.IDNumber" placeholder='请输入证件号码'></input>
 				</view>
 			</label>
 			<label>
@@ -106,6 +110,7 @@ export default {
             IdPicture1Url: '', //反面
 			edit:{
 			   RealName: '',
+			   NickName:'',
 			   Gender: '',
 			   Pid: '',
 			   Cid: '',
@@ -126,11 +131,13 @@ export default {
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow() {
+    onLoad() {
         let app = this.$store.state.userInfo;
+		console.log('专家入住页面进入')
+		console.log(app)
 		this.info=app;
 		let {
-		  Username, customerId, StatusForConsultant, AvatarUrl, IdPictureUrl,IdPicture1Url,WeChat,
+		  Username, customerId, NickName,StatusForConsultant, AvatarUrl, IdPictureUrl,IdPicture1Url,WeChat,
 		  AreaId, CityId, ProvinceId, RealName, Gender, IDType, IDNumber, Education, IDPicture,IDPicture1, Address1, Address2, Birthday,
 		} = app;
 		if(app){
@@ -141,13 +148,17 @@ export default {
 			this.IdPicture1Url = IdPicture1Url+'?'+Math.random();
 			this.StatusForConsultant = StatusForConsultant;
 			this.activeIndex = StatusForConsultant?StatusForConsultant:0;
-			this.edit = {  //第一步数据初始化
+			this.edit = Object.assign({},this.edit,{  //第一步数据初始化
 			  Pid: ProvinceId?ProvinceId+'':'', Cid: CityId?CityId+'':'', Aid: AreaId?AreaId+'':'',
-			  RealName, Gender, IDType, IDNumber,
+			  RealName, Gender, IDType, IDNumber,NickName,
 			  Education, IDPicture,IDPicture1, WeChat, Address1, Address2, Birthday
-			}
+			})
+			
 		}
-		this.index=this.array.indexOf(Education);
+		if(Education){
+			this.index=this.array.indexOf(Education);
+		}
+		
 		//初始化性别
 		this.items.forEach(val => {
 			if (val.value == Gender) {
@@ -179,16 +190,15 @@ export default {
 		//获取子组件数据
 		getImgId(val){
 			let {type, id, path} = val;
-			console.log(val)
-			if (type == 1) {
+			if (type === 1) {
 			  this.edit.IDPicture = id;
 			  this.IdPictureUrl = path;
 			}
-			if (type == 2) { //身份证反面
+			if (type === 2) { //身份证反面
 			  this.edit.IDPicture1 = id
 			  this.IdPicture1Url = path;
 			}
-       },
+        },
         //保存用户信息
         submit(e) {
 			if(!this.checkFirst(this.edit)){
@@ -209,12 +219,17 @@ export default {
         },
 		//验证数据
 		checkFirst(option){
+			console.log(option)
 			if (!option.RealName) {
 			  this.$msg.error("真实姓名不能为空");
 			  return false;
 			}
 			if (!option.IDPicture) {
-			  this.$msg.error("请上传手持身份证照片");
+			  this.$msg.error("请上身份证照片正面照");
+			  return false;
+			}
+			if (!option.IDPicture1) {
+			  this.$msg.error("请上身份证照片反面照");
 			  return false;
 			}
 			if (!option.Aid) {

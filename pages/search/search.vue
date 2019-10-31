@@ -71,17 +71,19 @@
 						title:"搜索内容不能为空"
 					})
 				}
+				
 				this.list = [];
 				this.Page = 1;
 				this.getList()
 			},
 			//获取搜索结果
 			getList() {
+				let search=this.search=='不限'?'':this.search;
 				let option = {
 					pageIndex: this.Page,
 					pageSize: this.PageSize,
-					RealName: this.isGood?'':this.search,
-					GoodFieldid:this.isGood?this.search:'',
+					RealName: this.isGood?'':search,
+					GoodFieldid:this.isGood?search:'',
 					startPrice:  0,
 					endPrice:  0,
 					ProvinceId: 0,

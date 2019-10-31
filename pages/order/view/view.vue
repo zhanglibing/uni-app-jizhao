@@ -12,7 +12,7 @@
 					<view>首次咨询时间：</view> <text>{{ orderDetails.ConsultationTime }}</text>
 				</view>
 				<view>
-					<view>咨询单价：</view> <text>{{ orderDetails.UnitPrice }}元</text>
+					<view>咨询单价(0.5小时)：</view> <text>{{ orderDetails.UnitPrice }}元</text>
 				</view>
 				<view>
 					<view>咨询时长（小时）：</view>
@@ -207,9 +207,9 @@ export default {
 			});
 		},
 		goConsulting(){
-			let {CreatedOnUtc,ProductId,CustomerInfo}=this.orderDetails;
+			let {CreatedOnUtc,ProductId,CustomerInfo,OrderTotal}=this.orderDetails;
 			uni.navigateTo({
-				url: `../../consulting/consulting?id=${ProductId}&time=${CreatedOnUtc}&CustomerInfo=${CustomerInfo}`,
+				url: `../../consulting/consulting?id=${ProductId}&time=${CreatedOnUtc}&CustomerInfo=${CustomerInfo}&OrderTotal=${OrderTotal}`,
 			});
 		}
 	

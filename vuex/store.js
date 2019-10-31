@@ -34,6 +34,8 @@ const state = {
 	fmList:[],  //fm播放列表
 	fmWishList:[], //fm收藏列表
 	platform:'ios',  //android
+	certiResult:{}, // 证件查询结果
+	isLoginShow:false,
 }
 
 const mutations = {
@@ -84,8 +86,20 @@ const mutations = {
 		let usesInfo=null;
 		setSessionVal('userInfo', null);
 	},
+	//   暂时为头像上传
+	setReplaceUserInfo(state,val){
+		let usesInfo={...state.userInfo,...val};
+		state.usesInfo=usesInfo;
+		setSessionVal('userInfo', usesInfo);
+	},
 	setPlatform(state,val){
 		state.platform=val;
+	},
+	setCertiResult(state,val){
+		state.certiResult=val;
+	},
+	setIsLoginShow(state,val){
+		state.isLoginShow=val;
 	}
 	
 }

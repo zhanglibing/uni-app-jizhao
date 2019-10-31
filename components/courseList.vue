@@ -5,7 +5,7 @@
 				<image :src="item.BannerPictureUrl"></image>
 			</view>
 			<view class='content flex-column'>
-				<view class='title'>
+				<view class='title textOver2'>
 					{{item.Title}}
 				</view>
 				<view class="watchs">观看人数:{{item.Watchs}}</view>
@@ -59,6 +59,9 @@ export default {
 			    IsNew: false,
 				CustomeType: 1
 			});
+			Data.forEach(val=>{
+				val.CreateDate=val.CreateDate.slice(0,10);
+			})
 			this.list = Data;
 		},
         goView(e) {
@@ -85,8 +88,8 @@ export default {
 			margin-bottom: 0;
 		}
         .img-box {
-            width: 300upx;
-            height: 200upx;
+            width: 270upx;
+            height: 180upx;
             margin-right: 20upx;
             position: relative;
         }
@@ -94,14 +97,18 @@ export default {
             flex: 1;
             font-size: 30upx;
             flex-direction: column;
-            height: 200upx;
+			justify-content: space-between;
+            height: 180upx;
             .title {
                 flex: 1;
+				line-height: 45upx;
+				max-height: 90upx;
             }
+		
 			.watchs{
-				font-size: 12px;
+				font-size: 10px;
 				color:#666;
-				margin-bottom: 15upx;
+				// margin-bottom: 15upx;
 			}
         }
     }

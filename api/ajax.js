@@ -31,11 +31,12 @@ function Ajax(path, option,methods='POST'){
 
 //全局获取用户id
 function getUserId(){
-	let userInfo=store.state.userInfo;
+  let userInfo=store.state.userInfo;
   if(!userInfo){
-    wx.navigateTo({
-      url: '/pages/login/login',
-    })
+	  store.commit('setIsLoginShow',false)
+    // wx.navigateTo({
+    //   url: '/pages/login/login',
+    // })
     return false;
   }
   return userInfo.customerId;

@@ -71,12 +71,12 @@ function getLoginUser(id) {
 }
 
 //注册账号
-function reg() {
+function reg(params) {
+	// 增加注册来源 小程序
+	params.FromSource='1058';
 	return new Promise((resolve,reject)=>{
 		//请求用户数据
-		Ajax('CustomerHandle/Register', {
-			code: res.code
-		}).then(res => {
+		Ajax('CustomerHandle/Register', params).then(res => {
 			resolve(res)
 			//调用登录接口
 		}).catch(res=>{

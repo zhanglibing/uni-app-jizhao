@@ -4,10 +4,10 @@
 			<view>账户余额（元）</view> <view class="num">{{ userInfo.CustomerBalance }}</view>
 		</view>
 		<view class="list">
-			<navigator url="/pages/money/topup/topup">
+			<!-- <navigator url="/pages/money/topup/topup">
 				充值
 				<view class="img-box"> <image src="/static/images/index/more.png"></image> </view>
-			</navigator>
+			</navigator> -->
 			<navigator url="/pages/money/withdrawal/withdrawal">
 				提现
 				<view class="img-box"> <image src="/static/images/index/more.png"></image> </view>

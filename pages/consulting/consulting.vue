@@ -1,5 +1,5 @@
 <template>
-	<view class="consulting-box">
+	<view class="consulting-box"  v-if="info">
 		<view class="info-box">
 			<view>本咨询服务协议由以下三方于 <text>{{time1}}</text>通过网络签署：</view>
 			<view><text>甲方（签约专家）：</text>{{info.RealName}}</view>
@@ -31,7 +31,8 @@
 		<view class="text-desc">
 			<view class="title">第一条 服务内容</view>
 			<view>
-				<view>1.1、 甲方同意向乙方提供1小时（以下简称“服务时间”）的心理咨询服务，甲、乙双方明确并同意，在乙方完成本协                       议项下服务费支付义务后，具体服务时间自乙方与甲方通过丙方平台预约的服务时间到达时开始计算。若甲、乙双方并未                      预约服务时间，则在乙方完成本协议项下服务费支付义务后，具体服务时间自乙方通过丙方平台接受甲方服务之时起开始                计算。</view>
+				<view>1.1、 甲方同意向乙方提供1小时（以下简称“服务时间”）的心理咨询服务，甲、乙双方明确并同意，在乙方完成本协 议项下服务费支付义务后，具体服务时间自乙方与甲方通过丙方平台预约的服务时间到达时开始计算。若甲、乙双方并未
+					预约服务时间，则在乙方完成本协议项下服务费支付义务后，具体服务时间自乙方通过丙方平台接受甲方服务之时起开始 计算。</view>
 
 				<view>1.2、 甲方在提供本协议项下心理咨询服务时，应严格遵守相关法律法规、行业规范及平台规则的要求，尽其所能为乙方 提供不低于行业同等水平的服务。</view>
 
@@ -40,25 +41,27 @@
 				<view>1.4、 乙方明确并承诺，其在接受心理咨询过程中应向甲方如实说明自身情况及遇到的问题，并遵从甲方给出的专业性建议及意见。</view>
 			</view>
 		</view>
-	    <view class="text-desc">
+		<view class="text-desc">
 			<view class="title">第二条 服务费用</view>
 			<view>2.1、 乙方应就本协议项下的心理咨询服务向甲方支付咨询服务费。咨询服务费的计算公式如下所示：
 
-咨询服务费 =咨询服务费单价人民币88.00元/时 *服务时间（小时）
+				咨询服务费 =咨询服务费单价人民币{{info.ConsultantInfo.SerivcePrice}} * 服务时间（小时）
 
-故乙方应向甲方支付咨询服务费总计人民币88.00元（大写：人民币捌拾捌元整元）。</view>
+				故乙方应向甲方支付咨询服务费总计人民币{{OrderTotal}}¥（大写：{{toUppers}}）。</view>
 			<view>2.2、 甲、乙双方应向丙方支付信息技术服务费，甲方不可撤销的明确并同意，其原意代乙方支付全部信息技术服务费。信息技术服务费的计算方法，详见《专家注册协议》相关规定。</view>
-			<view>2.3、 为完成交易之目的，甲方不可撤销的授权丙方代收乙方支付的咨询服务费，并授权丙方直接从代收的每笔咨询服务费中立即收取甲方应向丙方支付的信息技术服务费。丙方应根据其与甲方之间的协议按期足额向甲方支付扣除信息技术服务费后的剩余代收款项。具体付款流程如下：
+			<view>2.3、
+				为完成交易之目的，甲方不可撤销的授权丙方代收乙方支付的咨询服务费，并授权丙方直接从代收的每笔咨询服务费中立即收取甲方应向丙方支付的信息技术服务费。丙方应根据其与甲方之间的协议按期足额向甲方支付扣除信息技术服务费后的剩余代收款项。具体付款流程如下：
 
-			<view>（1） 乙方将本协议第2.1条约定的咨询服务费支付至丙方后，方可向甲方发出心理咨询的意向通知；</view>
+				<view>（1） 乙方将本协议第2.1条约定的咨询服务费支付至丙方后，方可向甲方发出心理咨询的意向通知；</view>
 
-			<view>（2） 丙方确认收到乙方支付的咨询服务费后，应及时通过平台通知甲方该情况，同时亦应反馈至乙方其咨询服务费已经按平台规则支付，其有权在预约时间接受甲方提供的服务或是通过丙方平台向甲方提出服务申请；</view>
+				<view>（2） 丙方确认收到乙方支付的咨询服务费后，应及时通过平台通知甲方该情况，同时亦应反馈至乙方其咨询服务费已经按平台规则支付，其有权在预约时间接受甲方提供的服务或是通过丙方平台向甲方提出服务申请；</view>
 
-			<view>（3） 甲方在收到丙方的通知后应根据本协议及相关规则的规定及要求为乙方提供心理咨询服务；</view>
+				<view>（3） 甲方在收到丙方的通知后应根据本协议及相关规则的规定及要求为乙方提供心理咨询服务；</view>
 
-			<view>（4） 丙方应定期通过平台通知或短信方式向甲方确认其信息技术服务费的支付情况。</view>
+				<view>（4） 丙方应定期通过平台通知或短信方式向甲方确认其信息技术服务费的支付情况。</view>
 			</view>
-			<view>2.4、 丙方应妥善保存其代收的咨询服务费，并与其自有资金分开保存。非根据本协议、其他协议及相关规则的约定，不得擅自挪用、移转或混同代收的咨询服务费。甲方明确并同意，丙方根据本协议代收代管咨询服务费期间，咨询服务费产生的利息归丙方所有。</view>
+			<view>2.4、
+				丙方应妥善保存其代收的咨询服务费，并与其自有资金分开保存。非根据本协议、其他协议及相关规则的约定，不得擅自挪用、移转或混同代收的咨询服务费。甲方明确并同意，丙方根据本协议代收代管咨询服务费期间，咨询服务费产生的利息归丙方所有。</view>
 			<view>2.5、 甲方对于丙方代收咨询服务费及扣除信息技术服务费存在疑问的，应当及时向丙方反馈，双方配合查清。</view>
 			<view>
 				2.6、 乙方在成功支付咨询服务费后，有权要求甲方就咨询服务费向其提供发票。
@@ -83,13 +86,15 @@
 			<view>3.3、 任何一方擅自披露保密信息造成其他各方损失的，披露方应承担相应的赔偿责任。</view>
 			<view>3.4、 本协议项下保密责任不会随本协议的失效、终止、撤销而失去效力。</view>
 		</view>
-		 <view class="text-desc">
+		<view class="text-desc">
 			<view class="title">第四条 协议终止</view>
-			<view>4.1、 甲方有权在甲、乙方双方预约的服务时间到达【48】小时前通过丙方平台通知乙方及丙方解除本协议，但甲方应退还或委托丙方退还收取的全部咨询服务费，并承担由此给乙方及丙方造成的一切损失。甲方进一步明确，若甲方行使本条款约定之解除权，丙方已经收取的信息技术服务费不予退还。</view>
-			<view>4.2、 丙方有权在甲方或乙方违反本协议约定时通过丙方平台通知甲方及乙方解除本协议。甲方应退还或委托丙方退还已经收取的、但尚未接受的心理咨询服务所对应的咨询服务费。若丙方因甲方违约而行使本条款约定之解除权，丙方已经收取的信息技术服务费不予退还，否则，丙方应于解除本协议后的【7】个工作日内，将收取的信息技术服务费退还给甲方。</view>
+			<view>4.1、
+				甲方有权在甲、乙方双方预约的服务时间到达【48】小时前通过丙方平台通知乙方及丙方解除本协议，但甲方应退还或委托丙方退还收取的全部咨询服务费，并承担由此给乙方及丙方造成的一切损失。甲方进一步明确，若甲方行使本条款约定之解除权，丙方已经收取的信息技术服务费不予退还。</view>
+			<view>4.2、
+				丙方有权在甲方或乙方违反本协议约定时通过丙方平台通知甲方及乙方解除本协议。甲方应退还或委托丙方退还已经收取的、但尚未接受的心理咨询服务所对应的咨询服务费。若丙方因甲方违约而行使本条款约定之解除权，丙方已经收取的信息技术服务费不予退还，否则，丙方应于解除本协议后的【7】个工作日内，将收取的信息技术服务费退还给甲方。</view>
 			<view>各方明确并同意，丙方行使本条款约定之解除权并不影响丙方追究违约方违约责任之权利。</view>
 		</view>
-		 <view class="text-desc">
+		<view class="text-desc">
 			<view class="title">第五条 违约责任</view>
 			<view>5.1、 各方均应严格履行本协议，非经各方协商一致或依照本协议约定，任何一方不得解除本协议。</view>
 			<view>5.2、 任何一方任何违反本协议约定的行为均构成违约，违约方应承担因违约而产生的赔偿责任并承担其余其他各方因违约而产生的其他费用和损失，包括但不限于调查费、诉讼费、律师费等。</view>
@@ -111,66 +116,91 @@
 <script>
 	import api from '../../api/consultation.js'
 	import order from '../../api/order.js'
+	import {
+		numberToUpper
+	} from '../../utils/numberToUpper.js'
 	export default {
 		data() {
 			return {
-				info:null,
-				time:order.getTime(),
-				phone:''
+				info: null,
+				time: order.getTime(),
+				phone: '',
+				OrderTotal: '',
+				toUppers:''
 			};
 		},
-		onLoad(option){
-			let {id,CustomerInfo,time}=option;
-			if(time){
-				this.time=time;
+		onLoad(option) {
+			let {
+				id,
+				CustomerInfo,
+				time,
+				OrderTotal,
+				
+			} = option;
+			if (time) {
+				this.time = time;
 			}
-			this.phone=CustomerInfo;
-			api.gtConsultantInfo(id).then(res=>{
-				this.info=res;
+			this.phone = CustomerInfo;
+			api.gtConsultantInfo(id).then(res => {
+				this.info = res;
+				this.OrderTotal = OrderTotal ? OrderTotal : res.ConsultantInfo.SerivcePrice;
+				this.toUppers=numberToUpper(this.OrderTotal)
 			})
 		},
-		onShow(){
-			
+		onShow() {
+
 		},
-		computed:{
-			getPhone(){
-				return this.phone?this.phone:this.$store.state.userInfo.Username
+		computed: {
+			getPhone() {
+				return this.phone ? this.phone : this.$store.state.userInfo.Username
 			},
-			time1(){
-				return this.time.slice(0,10)
+			time1() {
+				return this.time.slice(0, 10)
 			},
-			idNumber(){
-				return this.info.ConsultantInfo.IDNumber.slice(0,14)
+			idNumber() {
+				return this.info.ConsultantInfo.IDNumber.slice(0, 14)
+			}
+		},
+		filters: {
+			numberToUppers(val) {
+				console.log(numberToUpper(val))
+				return numberToUpper(val)
 			}
 		}
 	}
 </script>
 
 <style lang="scss">
-.consulting-box{
-	padding:30upx;
-	background: #fff;
-	.info-box{
-		margin-bottom: 30upx;
-		&>view{
-			margin-bottom: 10upx;
-			text{
+	.consulting-box {
+		padding: 30upx;
+		background: #fff;
+
+		.info-box {
+			margin-bottom: 30upx;
+
+			&>view {
+				margin-bottom: 10upx;
+
+				text {
+					font-weight: bold;
+				}
+			}
+		}
+
+		.text-desc {
+			margin-bottom: 30upx;
+
+			view {
+				margin-bottom: 10upx;
+				color: #222;
+				font-size: 12px;
+			}
+
+			.title {
 				font-weight: bold;
+				margin-bottom: 10upx;
+				font-size: 14px;
 			}
 		}
 	}
-	.text-desc{
-		margin-bottom: 30upx;
-		view{
-			margin-bottom: 10upx;
-			color:#222;
-			font-size: 12px;
-		}
-		.title{
-			font-weight: bold;
-			margin-bottom: 10upx;
-			font-size: 14px;
-		}
-	}
-}
 </style>

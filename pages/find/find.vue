@@ -46,6 +46,8 @@
 <style lang="scss">
 .find-box{
 	width:100%;
+	max-width: 750upx;
+	overflow-x: hidden;
 	&>view{
 		margin-bottom: 40upx;
 	}

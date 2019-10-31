@@ -20,14 +20,14 @@
 				</view>
 				<view class="right">
 					<block>
-						<view class="name">{{ wxInfo.nickName }}</view>
-						<view class="gender">{{ userInfo.Gender == '1' ? '男' : '女' }}</view>
+						<!-- {{ wxInfo.nickName }} -->
+						<view class="name" @click="login">立即登录</view>
+						<!-- {{ userInfo.Gender == '1' ? '男' : '女' }} -->
+						<view class="gender">解锁更多功能</view>
 					</block>
 				</view>
-				<navigator class="edit" url="/pages/login/login">点击登录</navigator>
 			</view>
-			
-			
+					
 			<view class="tab-box"  v-if="userInfo">
 				<navigator url="/pages/money/money" class="item">
 					<view class="img-box">
@@ -63,13 +63,18 @@
 				</view>
 			</view>
 		</view>
+	    <login></login>
 	</view>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import login from '../../components/login'
 import api from '../../api/user.js';
 export default {
+	components:{
+		login,
+	},
 	data() {
 		return {
 			list:[
@@ -80,7 +85,7 @@ export default {
 						needLogin:true,
 					},
 					{
-						title:'我的测试',url:'/pages/test/myTest/myTest',
+						title:'我的测试',url:'/pages/test/testOrder/testOrder',
 						img:'../../static/images/center/test.png',
 						needLogin:true,
 					},
@@ -103,7 +108,8 @@ export default {
 					},
 					{
 						title:'设置',url:'/pages/setting/setting',
-						img:'../../static/images/center/setting.png'
+						img:'../../static/images/center/setting.png',
+						needLogin:true,
 					},
 				],
 				[
@@ -112,7 +118,14 @@ export default {
 						img:'../../static/images/center/expertin.png',
 						needLogin:true,
 					},
-		
+				],
+				[
+					{
+						title:'证书查询',url:'/pages/certificate/certificate',
+						img:'../../static/images/center/certi.png',
+						needLogin:true,
+					},
+						
 				]
 			]
 		};
@@ -145,21 +158,8 @@ export default {
 						url:item.url
 					})
 				}else{
-					uni.showModal({
-						title: '提示',
-						content: '还没登录账号，请前往登录',
-						showCancel: true,
-						confirmText: '前往登录',
-						success: res => {
-							if(res.confirm){
-								uni.navigateTo({
-									url: '../login/login',
-								});
-							}
-						},
-					});
+					this.login()
 				}
-				
 				return false;
 			}
 			if(item.tel){
@@ -167,6 +167,9 @@ export default {
 					phoneNumber:item.tel
 				})
 			}
+		},
+	    login(){
+			this.$store.commit('setIsLoginShow',true)
 		}
 	},
 	computed: mapState(['userInfo','wxInfo'])
@@ -248,6 +251,9 @@ export default {
 	}
 }
 
+.contain-box{
+	margin-bottom: 100upx;
+}
 .list-box{
 	background: #fff;
 	border-radius: 20upx;

@@ -7,23 +7,31 @@
 				<image v-if="imgUrl" :src="imgUrl"></image>
 		</view>
 		<view @tap='formSubmit' class="block-btn">立即发表</view>
+		<login></login>
 	</view>
 </template>
 
 <script>
 import api from '../../../api/article.js';
+import login from '../../../components/login'
 export default {
+	components:{
+		login
+	},
     data() {
         return {
             imgUrl: '',
             base64: '',
             Subject: '',
-            Details: ''
+            Details: '',
+			isHttp:false,
         };
     },
     methods: {
         //提交
         formSubmit(e) {
+			if(this.isHttp) return false;
+			if(!this.$isLogin()){return false;} //判断是否登录
             if (!this.Subject) {
                 uni.showModal({
                     title: '提示',
@@ -48,20 +56,26 @@ export default {
                 });
                 return;
             }
+			this.isHttp=true;
             let option = {
                 Subject: this.Subject,
                 Details: this.Details,
                 imageStream: this.base64
             };
             api.publishPosting(option).then(res => {
+				this.isHttp=false;
                 uni.showToast({
                     title: '发表成功',
                     icon: 'success'
                 });
+				
                 setTimeout(() => {
-                    uni.navigateBack({
-                        delta: 1
-                    });
+//                     uni.navigateBack({
+//                         delta: 1
+//                     });
+					uni.navigateTo({
+						url:'../myTopic/myTopic'
+					})
                 }, 1000);
             });
         },

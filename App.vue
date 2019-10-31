@@ -199,3 +199,11 @@
 	
 	
 </style>
+
+
+<!-- {
+				"pagePath": "pages/find/find",
+				"text": "发现",
+				"iconPath": "static/images/nav/find.png",
+				"selectedIconPath": "static/images/nav/find-off.png"
+			}, -->

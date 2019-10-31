@@ -24,8 +24,9 @@ async function getList(params) {
 				SearchCustomers
 			} = res;
 			SearchCustomers.customers.forEach(val => { //转义字符串
-				val.PersonalIntroduction = val.PersonalIntroduction.replace(/_@/g, '</br>').slice(0,80)
+				// val.PersonalIntroduction = val.PersonalIntroduction.replace(/_@/g, '</br>').replace(/\n/g, '</br>').slice(0,80)
 				// val.PersonalIntroduction = textDecode(val.PersonalIntroduction);
+				// console.log(val.PersonalIntroduction)
 				if (val.Address2) {
 					val.Address2 = val.Address2.split('-').slice(0, 2).join(' - ').replace('省', '').replace('市', '');
 				}
@@ -35,6 +36,24 @@ async function getList(params) {
 	})
 }
 
+async function getHotList(){
+		return new Promise((resolve, reject) => {
+		Ajax('CustomerHandle/GetHotConsultantList').then(res => {
+			let {
+				Code,
+				GetHotConsultantList
+			} = res;
+			GetHotConsultantList.forEach(val => { //转义字符串
+				// val.PersonalIntroduction = val.PersonalIntroduction.replace(/_@/g, '</br>').slice(0,80)
+				// val.PersonalIntroduction = textDecode(val.PersonalIntroduction);
+				if (val.Address2) {
+					val.Address2 = val.Address2.split('-').slice(0, 2).join(' - ').replace('省', '').replace('市', '');
+				}
+			});
+			resolve(GetHotConsultantList)
+		})
+	})
+}
 //获取专家详情
 async function gtConsultantInfo(customerId) {
 	return new Promise((resolve, reject) => {
@@ -47,8 +66,9 @@ async function gtConsultantInfo(customerId) {
 			} = res.GetConsultantInfo;
 			let {Skilled,PersonalIntroduction,CareerBackground}=ConsultantInfo.ConsultantInfo;
 			ConsultantInfo.ConsultantInfo.Skilled=Skilled.split(',');
-			ConsultantInfo.ConsultantInfo.PersonalIntroduction=PersonalIntroduction.replace(/_@/g,'<br>'); 
-			ConsultantInfo.ConsultantInfo.CareerBackground=CareerBackground.replace(/_@/g,'<br>'); 
+			ConsultantInfo.ConsultantInfo.PersonalIntroduction=PersonalIntroduction.replace(/_@/g,'</br>').replace(/\/n/g,'<br>'); 
+			ConsultantInfo.ConsultantInfo.CareerBackground=CareerBackground.replace(/_@/g,'</br>').replace(/\/n/g,'<br>'); 
+			console.log(ConsultantInfo.ConsultantInfo)
 			resolve({
 				...ConsultantInfo,
 				AvatarUrl
@@ -111,7 +131,8 @@ async function BeConsultant_confirm(params) {
 export default {
 	getList,
 	gtConsultantInfo,
-	gtListComment
+	gtListComment,
+	getHotList
 }
 
 export {
@@ -119,6 +140,7 @@ export {
 	gtConsultantInfo,
 	gtListComment,
 	BeConsultant_one,
-	BeConsultant_confirm
+	BeConsultant_confirm,
+	getHotList
 	
 }

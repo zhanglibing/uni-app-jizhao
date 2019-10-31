@@ -36,9 +36,10 @@ Vue.prototype.$isLogin=()=>{
 	if(store.state.userInfo){
 		return true;
 	}
-	uni.navigateTo({
-		url:'/pages/login/login'
-	})
+	store.commit('setIsLoginShow',true)
+	// uni.navigateTo({
+	// 	url:'/pages/login/login'
+	// })
 	return false;
 }
 

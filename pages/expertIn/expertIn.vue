@@ -41,7 +41,7 @@
 				//先更新用户信息
 				api.getUserInfo().then(res=>{
 					let status=res.StatusForConsultant;
-					let path='./audit/audit'
+					let path='./basic/basic'
 					if(status==1){
 						path='./background/background'
 					}

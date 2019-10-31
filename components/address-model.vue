@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="address-select-box">
 		<picker mode="multiSelector" @change="bindMultiPickerChange" @columnchange="bindMultiPickerColumnChange"
 		 :value="multiIndex" :range="multiArray" range-key="areaname">
 			<view class="picker">
@@ -27,7 +27,7 @@
 			    Pid: ProvinceId ? ProvinceId + '' : '',
 			    Cid: CityId ? CityId + '' : '',
 			    Aid: AreaId ? AreaId + '' : '',
-			    Address2: Address2
+			    Address2: Address2?Address2:'请选择'
 			};
 			//获取省市区
 			api.getPAC().then(res => {
@@ -108,6 +108,21 @@
 	}
 </script>
 
-<style>
-
+<style lang="scss" scoped="">
+	.address-select-box{
+		width:100%;
+		min-height: 70upx;
+	}
+picker{
+	width:100%;
+	height:100%;
+	min-height: 70upx;
+	.picker{
+		width:100%;
+		min-height: 70upx;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+}
 </style>
