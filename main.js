@@ -6,9 +6,11 @@ import store from './vuex/store.js'
 import pictureCom from './components/pictureCom.vue'
 import nothingBottom from './components/nothing-bottom.vue'
 import uniLoadMore from './components/uni-load-more.vue'
+import kefu from './components/kefu.vue'
 Vue.component('picture-com',pictureCom)
 Vue.component('nothing-bottom',nothingBottom)
 Vue.component('uni-load-more',uniLoadMore)
+Vue.component('kefu',kefu)
 
 Vue.config.productionTip = false
 Vue.prototype.$store = store;

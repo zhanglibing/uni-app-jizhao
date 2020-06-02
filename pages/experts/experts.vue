@@ -70,6 +70,7 @@
 		</view>
         <expert-list :list="list"></expert-list>
 		<uni-load-more v-if="list.length" :loadingType="loadingType"></uni-load-more>
+		<kefu></kefu>
 	</view>
 </template>
 

@@ -65,6 +65,7 @@
 			</view>
 		</view>
 		<testComment :id="id" ref="commentList"></testComment>
+		<kefu></kefu>
 	</view>
 </template>
 

@@ -15,7 +15,7 @@
 		</view>
 		<navigator :open-type="openType" :url="url" class="more">
 			更多
-			<image src="../../static/images/index/more.png" mode=""></image>
+			<image src="../static/images/index/more.png" mode=""></image>
 		</navigator>
 	</view>
 </template>
@@ -39,29 +39,29 @@
 			return {
 				titles: {
 					1: {
-						icon: '../../static/images/index/t1.png',
+						icon: '../static/images/index/t1.png',
 						title: '热门专家',
 						en: 'HOT EXPERTS',
 					
 					},
 					2: {
-						icon: '../../static/images/index/t2.png',
+						icon: '../static/images/index/t2.png',
 						title: '热门测试',
 						en: 'HOT TEST',
 					
 					},
 					3: {
-						icon: '../../static/images/index/t3.png',
+						icon: '../static/images/index/t3.png',
 						title: 'FM',
 						en: 'FANMEETUNF'
 					},
 					4: {
-						icon: '../../static/images/index/t4.png',
+						icon: '../static/images/index/t4.png',
 						title: '文章分享',
 						en: 'THE ARTICLE TO SHARE'
 					},
 					5: {
-						icon: '../../static/images/index/t5.png',
+						icon: '../static/images/index/t5.png',
 						title: '热门课程',
 						en: 'TMOST POPULAR COURSES'
 					},

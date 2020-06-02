@@ -10,6 +10,7 @@
 		</view>
 		<view class="start-btn" @tap="goTesting">立即测试</view>
 		<login></login>
+		<kefu></kefu>
 	</view>
 </template>
 

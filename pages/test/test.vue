@@ -27,6 +27,7 @@
 			</view>
 		</view>
 		<uni-load-more v-if="list.length" :loadingType="loadingType"></uni-load-more>
+		<kefu></kefu>
 	</view>
 
 </template>

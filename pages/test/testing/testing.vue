@@ -41,6 +41,7 @@
 				<button v-else="" @click="next"  :disabled="!results[activeIndex]">下一题</button>
 			</view>
 		</view>
+		<kefu></kefu>
 	</view>
 </template>
 

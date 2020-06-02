@@ -90,6 +90,7 @@
 			<commonTitle  index="5"  url="../course/course">热门课程</commonTitle>
 			<courseList></courseList>
 		</view>
+		<kefu></kefu>
 	</view>
 </template>
 
