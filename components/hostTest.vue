@@ -33,12 +33,10 @@
 				testList:[]
 			};
 		},
-		onLoad() {
-			
+		created() {
 			test.getList().then(res => {
 				this.testList=res.Data;
 			});
-		
 		},
 		methods:{
 			goTest(id){

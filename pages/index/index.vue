@@ -71,7 +71,6 @@
 		<!-- 热门测试 -->
 		<view class="host-test">
 			<commonTitle index="2" url="../test/test">热门测试</commonTitle>
-			<!-- <commonTitle   url="../fm/fm">FM</commonTitle> -->
 			<hostTest></hostTest>
 		</view>
 
@@ -83,12 +82,12 @@
 		<!-- 文章分享 -->
 		<view class="article-box">
 			<commonTitle  index="4"  url="../article/article">文章分享</commonTitle>
-			<article-list pageSize="5"></article-list>
+			<article-list :isHome="true" pageSize="5"></article-list>
 		</view>
 
 		<view>
 			<commonTitle  index="5"  url="../course/course">热门课程</commonTitle>
-			<courseList></courseList>
+			<courseList  :isHome="true"></courseList>
 		</view>
 		<kefu></kefu>
 	</view>

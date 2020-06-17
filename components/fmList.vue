@@ -30,17 +30,21 @@ export default {
     	pageSize:{
     		type:Number,
     		default:10
-    	}
+    	},
+		isHome:{
+			type:Boolean,
+			default:true
+		}
     },
 	data(){
 		return {
 			list:[]
 		}
 	},
-	onLoad(){
+	created(){
 		this.list=this.data;
 		//发现模块展示
-		if(!this.list.length){
+		if(this.isHome){
 			 this.getList();
 		}
 		

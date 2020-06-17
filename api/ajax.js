@@ -5,6 +5,7 @@ const host = 'https://back.jizhaojk.com/'; //正式环境
 
 function Ajax(path, option,methods='POST'){
   return new Promise((resolve, reject) => {
+	  console.log(host + path)
     uni.request({
       url: host + path,
       method: methods,

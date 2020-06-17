@@ -130,7 +130,7 @@
 							Data
 						} = res;
 						Data.forEach(val => {
-							val.CustomerName = val.CustomerName.slice(0, 1)
+							val.CustomerName = val.CustomerName?val.CustomerName.slice(0, 1):''
 						})
 						this.comment = Data;
 					});

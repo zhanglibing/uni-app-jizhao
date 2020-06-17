@@ -30,6 +30,10 @@ export default {
 		pageSize:{
 			type:Number,
 			default:10
+		},
+		isHome:{
+			type:Boolean,
+			defaule:false,
 		}
 	},
 	data(){
@@ -37,8 +41,8 @@ export default {
 			list:[]
 		}
 	},
-	onLoad(){
-		if(!this.data.length){
+	created(){
+		if(this.isHome){
 			article.getArticleList({PageSize:this.pageSize}).then(res=>{
 				this.list = res.list;
 			})

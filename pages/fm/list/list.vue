@@ -1,6 +1,6 @@
 <template>
 	<view class="page-fm-list">
-		 <fm-list :data="list"></fm-list> 
+		 <fm-list :data="list" :isHome="false"></fm-list> 
 		 <uni-load-more v-if="list.length" :loadingType="loadingType"></uni-load-more>
 	</view>
 </template>

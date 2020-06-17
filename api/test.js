@@ -105,6 +105,7 @@ async function getUserTest(CustomerAnswerId) {
 
 //获取测试评论
 async function getTestComment(option) {
+	console.log(option)
 	return new Promise((resolve, reject) => {
 		Ajax('PsychtestHandle/GetComments_ById', option).then(res => {
 			resolve(res.GetComments_ById)

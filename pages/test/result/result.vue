@@ -1,70 +1,91 @@
 <template>
 	<view class="test-result">
-		<view class="test-title">{{ list[0].Title }}</view>
-		<!--  scl 专用结果展示-->
-		<view class="scl-box" v-if="view">
-			<view class="item-box" v-for="(item,index) in list" :key="index">
-				<view class="time">测试时间{{item.CreateDate}}</view>
-				<view class="title">您的测试结果<text>{{ item.result.degree }}症状</text></view>
-				<view class="table">
-					<view class="title">【测评结果分析】</view>
-					<view class="list-box">
-						<view class="flex-row">
-							<view>綜合项</view>
-							<view>得分</view>
-							<view>常模(均分±标准值)</view>
+		<view class="result_content">
+			<!-- <view class="test_header" :style="{backgroundImage:`url(${list[0].CustomerAnswer.imgUrl})`}"> -->
+			<view class="test_header">
+				{{ list[0].Title }}
+			</view>
+			<view class="result_list_box">
+				<!--  scl 专用结果展示-->
+				<view class="scl-box" v-if="view">
+					<view class="item-box" v-for="(item,index) in list" :key="index">
+						<view class="time">
+							<image src="https://back.jizhaojk.com/content/images/WeChat/date.png"></image>
+							测试时间{{item.CreateDate}}</view>
+						<view class="title">您的测试结果<text>{{ item.result.degree }}症状</text></view>
+						<view class="table">
+							<view class="title">【测评结果分析】</view>
+							<view class="list-box">
+								<view class="flex-row">
+									<view>綜合项</view>
+									<view>得分</view>
+									<view>常模(均分±标准值)</view>
+								</view>
+								<view class="flex-row" v-for="(child, i) in item.result.zong" :key="i">
+									<view>{{ child.name }}</view>
+									<view>{{ child.score }}</view>
+									<view>{{ child.standard }}</view>
+								</view>
+							</view>
+							<view class="list-box">
+								<view class="flex-row">
+									<view>因子项</view>
+									<view>得分</view>
+									<view>均分</view>
+								</view>
+								<view class="flex-row" v-for="(child, i) in item.result.yinziArr" :key="i">
+									<view>{{ child.name }}</view>
+									<view>{{ child.TotalScore }}</view>
+									<view>{{ child.divide }}</view>
+								</view>
+							</view>
 						</view>
-						<view class="flex-row" v-for="(child, i) in item.result.zong" :key="i">
-							<view>{{ child.name }}</view>
-							<view>{{ child.score }}</view>
-							<view>{{ child.standard }}</view>
+						<view class="rule-desc">
+							您当前的心理状况严重程度为:<text>{{ item.result.degree }}</text>。
+							本诊断结果按全国正常人SCL-90常模（N=1388）为依据评定（1-5级评分）
+							仅作为参考而非绝对标准，应根据临床（要害）症状来划分。如有疑问，或已经影响到你的正常生活、学习以及工
+							作，
+							<view>
+								建议尽早向心理专家咨询，进行专业的心理辅导。
+								切勿不加重视，贻误机会，导致严重后果。
+							</view>
 						</view>
 					</view>
-					<view class="list-box">
-						<view class="flex-row">
-							<view>因子项</view>
-							<view>得分</view>
-							<view>均分</view>
-						</view>
-						<view class="flex-row" v-for="(child, i) in item.result.yinziArr" :key="i">
-							<view>{{ child.name }}</view>
-							<view>{{ child.TotalScore }}</view>
-							<view>{{ child.divide }}</view>
-						</view>
+				
+				</view>
+				
+				<view v-if="list&&!view">
+					<view class="nomal-box" v-for="(item,index) in list" :key="index">
+						<view class="time">
+							<image src="https://back.jizhaojk.com/content/images/WeChat/date.png"></image>
+							测试时间{{item.CreateDate}}</view>
+						<view class="title">测试结果:</view>
+						<view class="testResult-text" v-html="item.CustomerAnswer.resultMsg"></view>
 					</view>
 				</view>
-				<view class="rule-desc">
-					您当前的心理状况严重程度为:<text>{{ item.result.degree }}</text>。
-					本诊断结果按全国正常人SCL-90常模（N=1388）为依据评定（1-5级评分）
-					仅作为参考而非绝对标准，应根据临床（要害）症状来划分。如有疑问，或已经影响到你的正常生活、学习以及工
-					作，
-					<view>
-						建议尽早向心理专家咨询，进行专业的心理辅导。
-						切勿不加重视，贻误机会，导致严重后果。
-					</view>
+				
+				<view class="btn_box1">
+					<navigator url="../../experts/experts" open-type="switchTab" class="test-btn">
+						<image src="https://back.jizhaojk.com/content/images/WeChat/find.png" mode=""></image>
+						找专家咨询
+					</navigator>
+					<navigator url="../test" class="test-btn">
+						<image src="https://back.jizhaojk.com/content/images/WeChat/more.png" mode=""></image>
+						更多测试
+					</navigator>
+					<button open-type="share" class="test-btn">
+						<image src="https://back.jizhaojk.com/content/images/WeChat/share.png" mode=""></image>
+						分享结果
+					</button>
 				</view>
+				
 			</view>
-
+			
 		</view>
-
-		<view v-if="list&&!view">
-			<view class="nomal-box" v-for="(item,index) in list" :key="index">
-				<view class="time">测试时间{{item.CreateDate}}</view>
-				<view class="title">测试结果:</view>
-				<view class="testResult-text" v-html="item.CustomerAnswer.resultMsg"></view>
-			</view>
+		<view class="commont_box" v-if="id">
+			<testComment :id="id" :ids="id" ref="commentList"></testComment>
 		</view>
-
-		<view class="btn-box">
-			<view class="goPage flex-row">
-				<navigator url="../test" class="submit-btn">更多测试</navigator>
-				<navigator url="../../experts/experts" open-type="switchTab" class="submit-btn">找专家咨询</navigator>
-			</view>
-			<view class="share block-btn">
-				<button type="primary" open-type="share">分享结果</button>
-			</view>
-		</view>
-		<testComment :id="id" ref="commentList"></testComment>
+		
 		<kefu></kefu>
 	</view>
 </template>
@@ -92,13 +113,11 @@
 		},
 
 		onLoad(option) {
-			console.log(option)
 			let {
 				CustomerId,
-				id
+				id,
 			} = option;
 			this.id = id;
-
 			this.CustomerId = CustomerId ? CustomerId : getUserId();
 
 			this.getList()
@@ -174,23 +193,38 @@
 </script>
 
 <style lang="scss" scoped="">
-	.test-title {
-		margin-bottom: 40upx;
-		font-size: 16px;
-	}
-
 	.test-result {
 		padding: 30upx;
 		box-sizing: border-box;
-		background: #fff;
+		background: #F6F6F6;
 		min-height: calc(100vh);
 	}
+	.result_content{
+		background: #fff;
+		.result_list_box{
+			padding:0 20upx;
+		}
+	}
+	.test_header{
+		height:347upx;
+		background: url('https://back.jizhaojk.com/content/images/WeChat/test_bg.png') center center no-repeat;
+	    background-size: cover;
+		display: flex;
+		align-items: center;
+        justify-content:center;
+		margin-bottom: 40upx;
+		font-size: 16px;
+		color:#fff;
+		padding:0 30upx;
+	}
+	
+
+
 
 	.scl-box {
 		.item-box {
 			margin-bottom: 50upx;
 			padding: 40upx 0;
-			border-bottom: 1px solid #bbb;
 
 			&:last-child {
 				margin-bottom: 100upx;
@@ -199,12 +233,22 @@
 
 			.time {
 				color: #666;
+				font-size: 24upx;
+				margin-bottom: 32upx;
+				display: flex;
+				align-items: center;
+				image{
+					width:34upx;
+					height:34upx;
+					margin-right: 30upx;
+				}
 			}
 		}
 
 		.title {
-			font-size: 16px;
-			margin-bottom: 10upx;
+			margin-bottom: 32upx;
+			color:#585858;
+			font-size: 32upx;
 		}
 
 		.table {
@@ -241,7 +285,6 @@
 
 	.nomal-box {
 		padding: 30upx 0;
-		border-bottom: 1px solid #bbb;
 
 		&:last-child {
 			margin-bottom: 100upx;
@@ -250,57 +293,67 @@
 
 		.time {
 			color: #666;
+			font-size: 24upx;
+			margin-bottom: 32upx;
+			display: flex;
+			align-items: center;
+			image{
+				width:34upx;
+				height:34upx;
+				margin-right: 30upx;
+			}
 		}
 
 		.title {
-			margin-bottom: 20upx;
+			margin-bottom: 32upx;
+			color:#585858;
+			font-size: 32upx;
 		}
 
 		.testResult-text {
 			line-height: 50upx;
 			color: #666;
-			font-size: 14px;
+			font-size: 24upx;
 		}
 	}
 
-	.btn-box {
-		margin-top: 150upx;
-		width: 540upx;
-		margin: 0 auto 100upx;
+    .btn_box1{
+		display: flex;
+		justify-content: space-around;
+		margin-bottom: 18upx;
+		padding-bottom:60upx;
+		button::before {
+		  border:0;
+		  border:none;
+		}
+		button::after {
+		  border:0;
+		  border:none;
+		}
+		.test-btn{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			color:#9A9A9A;
+			font-size: 26upx;
+			border: none;
+			line-height: 1;
+			padding: 0;
+			background: #fff;
+			margin:0;
 
-		.flex-row {
-			justify-content: space-between;
-			margin-bottom: 80upx;
-
-			.submit-btn {
-				width: 240upx;
-				height: 80upx;
-				line-height: 80upx;
+			image{
+				width:104upx;
+				height:104upx;
+				margin-bottom: 20upx;
 			}
 		}
-
-		.share {
-			width: 100%;
-			background: #f5a623;
-
-			button {
-				width: 100%;
-
-				&[type='primary'] {
-					background: transparent;
-				}
-
-				&::after {
-					border: none;
-				}
-
-				&.button-hover {
-					background: #f5a623;
-					color: #fff;
-				}
-			}
-
-		}
-
+	}
+	.commont_box{
+		padding:40upx 30upx;
+		width:750upx;
+		box-sizing: border-box;
+		margin-left: -30upx;
+		background: #fff;
 	}
 </style>

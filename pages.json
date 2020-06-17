@@ -1,9 +1,16 @@
 {
 	"pages": [
+	
 		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "幸福谋方"
+			}
+		},
+		{
+			"path": "pages/test/result/result",
+			"style": {
+				"navigationBarTitleText": "测试结果"
 			}
 		},
 		{
@@ -45,12 +52,7 @@
 			}
 		},
 		
-		{
-			"path": "pages/test/result/result",
-			"style": {
-				"navigationBarTitleText": "测试结果"
-			}
-		},
+		
 		
 		
 		{

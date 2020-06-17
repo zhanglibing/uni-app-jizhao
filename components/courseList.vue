@@ -32,6 +32,10 @@ export default {
 		pageSize:{
 			type:Number,
 			default:10
+		},
+		isHome:{
+			type:Boolean,
+			defaule:false,
 		}
 	},
 	data(){
@@ -40,9 +44,10 @@ export default {
 			platform:''
 		}
 	},
-	onLoad(){
+	created(){
+		this.platform=this.$store.state.platform;
 		//发现模块展示
-		if(!this.list.length){
+		if(this.isHome){
 			 this.getList();
 		}
 		
@@ -70,10 +75,6 @@ export default {
             });
         }
     },
-	created(){
-		this.platform=this.$store.state.platform;
-
-	}
 };
 </script>
 

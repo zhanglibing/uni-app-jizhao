@@ -6,14 +6,14 @@
 				@click="isShow=false"
 				src="../static/images/close.png"></image>
 				<image class="bg_image" src="https://back.jizhaojk.com/content/images/WeChat/kefu_bg.png"></image>
-			    <image @longtap="previewImage" class="kefuqrcode" src="https://back.jizhaojk.com/content/images/WeChat/kefuqrcode.jpeg"></image>
+			    <image @longtap="previewImage" class="kefuqrcode" :src="kefuqrcode"></image>
 				<view class="content_box">
 					<view class="flex">
 						<view>客服微信：xfmfxl</view>
 						<view class="btn" @click="setCli">一键复制</view>
 					</view>
 					<view class="flex">
-						<view>客服热线：4001661085</view>
+						<view>客服热线：400-1661-085</view>
 						<view class="btn" @click="callPhone">一键拨打</view>
 					</view>
 				</view>
@@ -32,6 +32,7 @@
 		data() {
 			return {
 				isShow:false,
+				kefuqrcode:'https://back.jizhaojk.com/content/images/WeChat/kefuqrcode.png'
 			};
 		},
 		methods:{
@@ -51,8 +52,8 @@
 			previewImage: function(e) {
 			    var current = e.target.dataset.src;
 			    uni.previewImage({
-			      current: 'https://back.jizhaojk.com/content/images/WeChat/kefuqrcode.jpeg',
-			      urls: ['https://back.jizhaojk.com/content/images/WeChat/kefuqrcode.jpeg']
+			      current: this.kefuqrcode,
+			      urls: [this.kefuqrcode]
 			    })
 			  },
 		
@@ -84,31 +85,31 @@
 
 .dia_wrapper{
 	position: fixed;
-	top:calc((100vh - 848upx) / 2);
+	top:calc(((100vh - 767upx) / 2) + 40upx);
 	width:658upx;
-	height:848upx;
+	height:767upx;
 	left:46upx;
 	.close{
 		width:48upx;
 		height:48upx;
 		position: absolute;
-		top:0upx;
+		top:-60upx;
 		right:0;
 	}
 	.bg_image{
 		width:658upx;
-		height:848upx;
+		height:767upx;
 	}
 	.kefuqrcode{
-		width:200upx;
-		height:200upx;
+		width:268upx;
+		height:268upx;
 		position: absolute;
-		top:100upx;
-		left:300upx;
+		top:-80upx;
+		left:195upx;
 	}
 	.content_box{
 		position: absolute;
-		bottom:30upx;
+		bottom:100upx;
 		padding:50upx;
 		width:100%;
 		box-sizing: border-box;
