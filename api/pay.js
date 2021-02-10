@@ -111,6 +111,13 @@ function wxPaying(params, option,url){
   //调用微信支付
   wx.checkSession({
     success: () => {
+	  // 先调用接口让后台轮训
+	  console.log('调用轮训')
+	  Ajax(`OrderHandle/StartOrderQuery`, {orderId:orderId}).then(res => {
+		  console.log(res)
+	  }).catch(e=>{
+		  console.log(e)
+	  })
       wx.requestPayment({
         appId,
         timeStamp,

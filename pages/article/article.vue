@@ -1,6 +1,6 @@
 <template>
 	<view>
-		 <article-list :data="list"></article-list> 
+		 <article-list :datas="list"></article-list> 
 		 <uni-load-more v-if="list.length" :loadingType="loadingType"></uni-load-more>
 	</view>
 </template>

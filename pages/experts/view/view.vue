@@ -50,7 +50,7 @@
 				</view>
 				<!-- 文章模块 -->
 				<view v-if="active == 2">
-					<article-list v-if="articlelist.length" :data="articlelist"></article-list>
+					<article-list v-if="articlelist.length" :datas="articlelist"></article-list>
 					<view class="nothing" v-else=""> 该咨询师太忙了，还没有时间发表文章 </view>
 				</view>
 				<!-- 评论模块 -->

@@ -6,7 +6,7 @@
 				<view class="scroll-view-item_H scroll-test" v-for="(item, index) in testList" :key="index">
 					<view class="item-box" @tap="goTest(item.Id)">
 						<view class="img-box">
-							<image :src="item.BannerPictureUrl" mode=""></image>
+							<image :src="item.BannerPictureUrl" mode="aspectFill"></image>
 						</view>
 						<view class="title textOver1">
 							{{item.Title}}

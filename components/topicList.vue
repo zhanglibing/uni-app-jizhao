@@ -2,7 +2,7 @@
 	<view>
 		<view @tap="goView(item.Id)" class='item flex-row' v-for="(item,index) in data" :key="index">
 			<view class='avatar-box'>
-				<image :src="item.AvatarUrl" mode=""></image>
+				<image :src="item.AvatarUrl"  mode="aspectFill"></image>
 			</view>
 			<view class='content'>
 				<view class='auther'>
@@ -35,7 +35,7 @@
 		// props: ['data','isShow’],
 		props:{
 			data:{
-				type:String,
+				type:Array,
 				default:()=>{
 					return [];
 				}

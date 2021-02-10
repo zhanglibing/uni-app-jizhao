@@ -1,6 +1,6 @@
 <template>
 	<view class="fm-list-com">
-		<view  @tap="goView(item.Id,item.CustomerId)" class='item flex-row' v-for="(item,index) in data.length?data:list" :key="index">
+		<view  @tap="goView(item.Id,item.CustomerId)" class='item flex-row' v-for="(item,index) in showData" :key="index">
 			<view class='img-box'>
 				<image :src="item.BackgroundPictureUrl"></image>
 			</view>
@@ -49,11 +49,15 @@ export default {
 		}
 		
 	},
+	computed:{
+		showData(){
+			return this.data.length?this.data:this.list;
+		}
+	},
     methods: {
-		getList(){
-			api.getList().then(res=>{
-				this.list=res.Data;
-			})
+		async getList(){
+			const {Data}=await api.getList()
+			this.list=Data;
 		},
         goView(id) {
 			let data=this.data;

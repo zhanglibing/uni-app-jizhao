@@ -13,6 +13,7 @@
 
 <script>
 	import api from '../../../api/order.js'
+	import {checkContent} from '../../../api/login.js';
 	import elRate from '../../../components/elRate.vue'
 	export default {
 		components:{
@@ -33,7 +34,7 @@
 		},
 		methods:{
 			//提交评价
-			submit(){
+			async submit(){
 				let option={
 				  CommentContent:this.CommentContent,
 				  DescriptionConsistent:this.DescriptionConsistent,
@@ -41,6 +42,11 @@
 				  ServiceAttitude:this.ServiceAttitude,
 				  orderId:this.id,
 				  Anonymous:this.Anonymous,
+				}
+				const {errcode}=await checkContent(this.CommentContent)
+				if(errcode=='87014'){
+					this.$msg.error('内容含有违法违规内容!');
+					return false;
 				}
 				api.orderEvalute(option).then(res=>{
 					uni.showToast({

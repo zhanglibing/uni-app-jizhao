@@ -98,7 +98,7 @@ export default {
 				[
 					{
 						title:'联系我们',
-						tel:'051269576237',
+						tel:'400-166-1085',
 						img:'../../static/images/center/tel.png'
 					},
 					{

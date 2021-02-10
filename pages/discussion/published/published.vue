@@ -13,6 +13,7 @@
 
 <script>
 import api from '../../../api/article.js';
+import {checkContent,imgSecCheck} from '../../../api/login.js';
 import login from '../../../components/login'
 export default {
 	components:{
@@ -29,7 +30,7 @@ export default {
     },
     methods: {
         //提交
-        formSubmit(e) {
+        async formSubmit(e) {
 			if(this.isHttp) return false;
 			if(!this.$isLogin()){return false;} //判断是否登录
             if (!this.Subject) {
@@ -56,6 +57,11 @@ export default {
                 });
                 return;
             }
+			const {errcode}=await checkContent(this.Subject+this.Details)
+			if(errcode=='87014'){
+				this.$msg.error('内容含有违法违规内容!');
+				return false;
+			}
 			this.isHttp=true;
             let option = {
                 Subject: this.Subject,
@@ -80,24 +86,31 @@ export default {
             });
         },
         //上传图片
-        uploadImg() {
+        async uploadImg() {
             let that = this;
             uni.chooseImage({
                 count: 1,
                 sizeType: ['original', 'compressed'],
                 sourceType: ['album', 'camera'],
-                success(res) {
+                success:async (res)=> {
                     // data: image / jpeg; base64,
                     let img = uni
                         .getFileSystemManager()
                         .readFileSync(res.tempFilePaths[0], 'base64');
-                    uni.showToast({
-                        title: '图片上传成功',
-                        icon: 'success'
-                    });
+                  
+					const errcode=await imgSecCheck(img)
+					if(errcode=='87014'){
+						this.$msg.error('图片含有违法违规内容，请重新上传!');
+						return false;
+					}
                     // tempFilePath可以作为img标签的src属性显示图片
                     that.imgUrl = res.tempFilePaths;
                     that.base64 = img;
+					
+					uni.showToast({
+					    title: '图片上传成功',
+					    icon: 'success'
+					});
                 }
             });
         }

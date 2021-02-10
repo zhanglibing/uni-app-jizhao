@@ -266,7 +266,7 @@ function getResults(info, results) {
     })
 
     //阳性症状指数
-    let PositiveSymptomIndex = (TotalScore / (90 - yingxing)).toFixed(2);
+    let PositiveSymptomIndex = ((TotalScore - yingxing) / (90 - yingxing)).toFixed(2);
 
 
     let result = [];

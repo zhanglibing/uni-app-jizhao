@@ -8,6 +8,7 @@
 
 <script>
 import api from '../../../api/article.js';
+import {checkContent} from '../../../api/login.js';
 import login from '../../../components/login'
 export default {
 	components:{
@@ -23,10 +24,16 @@ export default {
 		this.option = options;
 	},
 	methods: {
-		formSubmit() {
+		async formSubmit() {
+			
 			if(!this.$isLogin()){return false;} //判断是否登录
 			if (!this.Contenttext) {
 				return this.$msg.error('回复内容不能为空');
+			}
+			const {errcode}=await checkContent(this.Contenttext)
+			if(errcode=='87014'){
+				this.$msg.error('内容含有违法违规内容!');
+				return false;
 			}
 			let { TopicId, PostId } = this.option;
 			let option = {
@@ -36,6 +43,7 @@ export default {
 			if (PostId) {
 				option.PostId = PostId;
 			}
+			
 			let fun = PostId ? api.postpostCreate : api.postCreate;
 			fun(option)
 				.then(res => {

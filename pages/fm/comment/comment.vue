@@ -7,6 +7,7 @@
 
 <script>
 import fm from '../../../api/fm.js';
+import {checkContent} from '../../../api/login.js';
 export default {
 	data() {
 		return {
@@ -20,7 +21,7 @@ export default {
 	},
 	methods: {
 		 //提交评论
-      SubmitComment(){
+      async SubmitComment(){
         let CommentText = this.CommentText;
         if (!CommentText) {
 			uni.showToast({
@@ -30,6 +31,11 @@ export default {
 			});
             return false;
         }
+		const {errcode}=await checkContent(CommentText)
+		if(errcode=='87014'){
+			this.$msg.error('内容含有违法违规内容!');
+			return false;
+		}
         let option = {
           FMId: this.id,
           CommentText

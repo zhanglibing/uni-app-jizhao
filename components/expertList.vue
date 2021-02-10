@@ -13,7 +13,7 @@
 						<view class="name">
 							{{ item.RealName }} <text>从业{{ item.WorkingYears }}年</text>
 						</view>
-						<view class="submit-btn">私聊</view>
+						<view class="submit-btn">详情</view>
 					</view>
 					<view class="introduce ">
 						<text space="emsp" class="textOver3">{{item.PersonalIntroduction}}</text>

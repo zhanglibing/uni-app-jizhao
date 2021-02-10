@@ -1,6 +1,6 @@
 <template>
 	<view class="home-box">
-		<topic-list :data="list"></topic-list>
+		<topic-list v-if="list.length" :data="list"></topic-list>
 		<view class='published'>
 		  <navigator url="/pages/discussion/published/published">发帖</navigator>
 		</view>

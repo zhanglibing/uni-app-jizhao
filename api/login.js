@@ -87,7 +87,6 @@ function reg(params) {
 
 //发送短信验证码
 function sendSms(option){
-	console.log(option)
 	return new Promise((resolve,reject)=>{
 		Ajax('CustomerHandle/SendSMS',option).then(res=>{
 			resolve('ok')
@@ -127,6 +126,28 @@ function logOut(params) {
     });
   }).catch(res => {
    
+  })
+}
+
+//验证内容是否有违规
+export function checkContent(content){
+  return new Promise((resolve,reject)=>{
+  	Ajax('WXLogin/msgSecCheck',{content}).then(res=>{
+  		resolve(JSON.parse(res.msgSecCheck)); 
+  	}).catch(res=>{
+  		reject(false)
+  	})
+  })
+}
+
+//验证图片是否有违规
+export function imgSecCheck(imageStream){
+  return new Promise((resolve,reject)=>{
+  	Ajax('WXLogin/imgSecCheck',{imageStream}).then(res=>{
+  		resolve(res.msgSecCheck); 
+  	}).catch(res=>{
+  		reject(false)
+  	})
   })
 }
 
